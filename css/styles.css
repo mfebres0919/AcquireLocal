@@ -2450,3 +2450,21 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   border-radius: 0 4px 4px 0;
   background: var(--gold);
 }
+
+/* Generated (screen-reader-silent) nav numbers + arrows, impact numbers */
+.nav__list { counter-reset: navnum; }
+.nav__list li { counter-increment: navnum; }
+.nav__num::before {
+  content: counter(navnum, decimal-leading-zero);
+  content: counter(navnum, decimal-leading-zero) / "";
+}
+.nav__arrow::before {
+  content: "→";
+  content: "→" / "";
+}
+.partners__impact-list { counter-reset: impact; }
+.partners__impact-list li { counter-increment: impact; }
+.partners__impact-num::before {
+  content: counter(impact, decimal-leading-zero);
+  content: counter(impact, decimal-leading-zero) / "";
+}

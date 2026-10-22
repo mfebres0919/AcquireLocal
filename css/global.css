@@ -368,3 +368,20 @@ main:focus { outline: none; }
     transition-duration: .01ms !important;
   }
 }
+
+/* ---------- Decorative symbols drawn in CSS ----------
+   Arrows, step numbers and the required-field asterisk are generated content
+   with empty alt text ( / "" ), so they show on screen but screen readers skip
+   them — no aria-hidden needed. The first declaration is a fallback for
+   browsers without alt-text support. */
+.glyph::before,
+.btn__arrow::before,
+.btn--arrow__icon::before {
+  content: attr(data-icon);
+  content: attr(data-icon) / "";
+}
+.glyph { display: inline-block; }
+.req::before {
+  content: "*";
+  content: "*" / "";
+}
