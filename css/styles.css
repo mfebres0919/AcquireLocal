@@ -375,7 +375,7 @@ body.menu-locked { overflow: hidden; }
   flex-direction: column;
   min-height: max(40rem, 100svh);
   padding-top: 8.5rem;                                  /* clears fixed header */
-  padding-bottom: calc(var(--storefront-h) + 4.5rem);   /* room for controls + storefront row */
+  padding-bottom: calc(var(--storefront-h) + 7.5rem);   /* room for controls + breathing space above the storefront row */
   background: var(--navy);
   color: var(--ink-on-dark);
   overflow: hidden;
@@ -472,7 +472,7 @@ body.menu-locked { overflow: hidden; }
   display: block;
   width: clamp(17rem, 12rem + 16vw, 27rem);
   height: auto;
-  margin: 0 auto clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  margin: 0 auto clamp(1.25rem, 1rem + 1vw, 1.75rem);
 }
 
 .hero__actions {
@@ -511,7 +511,7 @@ body.menu-locked { overflow: hidden; }
 .hero__controls {
   position: absolute;
   left: 0; right: 0;
-  bottom: calc(var(--storefront-h) + 1rem);
+  bottom: calc(var(--storefront-h) + 2.25rem);   /* clear gap between the controls and the rooftops */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -624,7 +624,7 @@ body.menu-locked { overflow: hidden; }
   .hero {
     --storefront-h: 7rem;
     min-height: max(46rem, 100svh);
-    padding-top: 11rem;
+    padding-top: 9rem;
   }
   .hero__overlay {
     background:
