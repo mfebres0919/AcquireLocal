@@ -114,16 +114,26 @@
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars::before { transform: translateY(6px) rotate(45deg); }
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars::after  { transform: translateY(-6px) rotate(-45deg); }
 
-/* Menu button: solid wine circle with white lines, in every header state */
+/* Menu button
+   - Navy header (over the hero, or menu open): cream circle, wine lines
+   - Cream header (scrolled): wine circle, white lines */
 .nav__toggle,
-.site-header.is-scrolled .nav__toggle,
 .site-header.menu-open .nav__toggle {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--wine);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .5);
+}
+.nav__toggle:hover,
+.site-header.menu-open .nav__toggle:hover { background: #fff; border-color: #fff; }
+
+.site-header.is-scrolled:not(.menu-open) .nav__toggle {
   background: var(--wine);
   border-color: var(--wine);
   color: #fff;
   box-shadow: 0 6px 16px -8px rgba(40, 10, 20, .6);
 }
-.nav__toggle:hover { background: #4A1827; border-color: #4A1827; }
+.site-header.is-scrolled:not(.menu-open) .nav__toggle:hover { background: #4A1827; border-color: #4A1827; }
 
 /* ---------- Mobile / tablet panel ----------
    A dropdown under the header bar, only as tall as its content (scrolls if the
