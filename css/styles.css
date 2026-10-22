@@ -2435,3 +2435,18 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 
 /* Current page in the footer */
 .footer a[aria-current="page"] { color: var(--gold); }
+
+/* "On this page" — current section (set by active-nav.js) */
+.legal__toc li { position: relative; }
+.legal__toc a { transition: color .2s var(--ease); }
+.legal__toc a[aria-current] { color: var(--wine); }
+.legal__toc a[aria-current]::after {
+  content: "";
+  position: absolute;
+  left: -1.5rem;                 /* sits on the card's left edge */
+  top: .35rem;
+  bottom: .35rem;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--gold);
+}
