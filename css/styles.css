@@ -1,0 +1,1614 @@
+/* ==========================================================================
+   AcquireLocal — styles.css
+   Section styles, in page order. Mobile-first.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Header — event bar + navigation
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+}
+
+/* ---------- Event bar ---------- */
+.topbar {
+  background: var(--navy);
+  color: var(--ink-on-dark);
+  font-size: .8125rem;
+  overflow: hidden;
+  max-height: 3rem;
+  transition: max-height .3s var(--ease);
+}
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.5rem;
+}
+.topbar__full { display: none; }
+.topbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  min-height: 2.5rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.topbar__link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (min-width: 48em) {
+  .topbar__full { display: inline; }
+  .topbar__short { display: none; }
+}
+
+/* ---------- Nav bar ---------- */
+.nav {
+  transition: background-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 4.5rem;
+}
+
+.nav__logo {
+  position: relative;
+  z-index: 2;            /* stays above the open mobile panel */
+  display: block;
+  width: 10.5rem;
+  flex-shrink: 0;
+}
+.nav__logo-img--dark { display: none; }
+
+/* Scrolled state: solid cream bar, event bar tucks away */
+.site-header.is-scrolled .topbar { max-height: 0; }
+.site-header.is-scrolled .nav {
+  background: var(--cream);
+  box-shadow: 0 1px 0 rgba(5, 46, 102, .08), 0 8px 24px -12px rgba(5, 46, 102, .18);
+}
+.site-header.is-scrolled .nav__logo-img--light { display: none; }
+.site-header.is-scrolled .nav__logo-img--dark { display: block; }
+
+/* ---------- Mobile toggle ---------- */
+.nav__toggle {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: transparent;
+  border: 2px solid rgba(243, 236, 229, .6);
+  border-radius: 50%;
+  color: var(--linen);
+}
+.nav__toggle-bars,
+.nav__toggle-bars::before,
+.nav__toggle-bars::after {
+  display: block;
+  width: 1.125rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .25s var(--ease), background-color .25s var(--ease);
+}
+.nav__toggle-bars { position: relative; }
+.nav__toggle-bars::before,
+.nav__toggle-bars::after { content: ""; position: absolute; left: 0; }
+.nav__toggle-bars::before { top: -6px; }
+.nav__toggle-bars::after  { top: 6px; }
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bars { background: transparent; }
+.nav__toggle[aria-expanded="true"] .nav__toggle-bars::before { transform: translateY(6px) rotate(45deg); }
+.nav__toggle[aria-expanded="true"] .nav__toggle-bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
+.site-header.is-scrolled .nav__toggle { color: var(--navy); border-color: rgba(5, 46, 102, .35); }
+
+/* ---------- Mobile panel ----------
+   Opens as a circle growing out of the menu button, then the links,
+   button and contact details slide in one after another. */
+.nav__menu {
+  --reveal-origin: calc(100% - var(--gutter) - 1.375rem) 2.25rem;  /* centre of the toggle */
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 6rem var(--gutter) 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgba(39, 132, 223, .18), transparent 60%),
+    var(--navy);
+  visibility: hidden;
+  clip-path: circle(0 at var(--reveal-origin));
+  /* Content scrolling up fades out before it reaches the logo + close button */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 3.5rem, #000 4.5rem);
+  mask-image: linear-gradient(to bottom, transparent 3.5rem, #000 4.5rem);
+  transition: clip-path .55s cubic-bezier(.65, 0, .35, 1), visibility 0s linear .55s;
+}
+.nav__menu.is-open {
+  visibility: visible;
+  clip-path: circle(150% at var(--reveal-origin));
+  transition: clip-path .6s cubic-bezier(.65, 0, .35, 1), visibility 0s;
+}
+
+/* Faint storefront row closing out the panel (in the flow, so it never covers content) */
+.nav__menu::after {
+  content: "";
+  flex-shrink: 0;
+  margin: auto calc(var(--gutter) * -1) 0;
+  height: 4rem;
+  background: url("../images/brand/storefronts.svg") repeat-x center bottom / auto 100%;
+  opacity: .22;
+  pointer-events: none;
+}
+
+/* Links: numbered rows with dividers */
+.nav__list { border-top: 1px solid rgba(243, 236, 229, .16); }
+.nav__list li { border-bottom: 1px solid rgba(243, 236, 229, .16); }
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.05rem 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--linen);
+  text-decoration: none;
+}
+.nav__num {
+  min-width: 1.5rem;
+  font-size: .75rem;
+  letter-spacing: .08em;
+  color: var(--gold);
+}
+.nav__label { flex: 1; }
+.nav__arrow {
+  font-size: 1.125rem;
+  color: rgba(243, 236, 229, .5);
+  transition: transform .25s var(--ease), color .25s var(--ease);
+}
+.nav__link:hover .nav__label,
+.nav__link:focus-visible .nav__label { color: var(--gold); }
+.nav__link:hover .nav__arrow,
+.nav__link:focus-visible .nav__arrow { color: var(--gold); transform: translateX(4px); }
+
+.nav__cta { width: 100%; }
+
+/* Event + contact block */
+.nav__contact {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(243, 236, 229, .06);
+  border: 1px solid rgba(243, 236, 229, .12);
+  border-radius: 1rem;
+}
+.nav__contact-title {
+  margin-bottom: .75rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.nav__contact-list { display: grid; gap: .65rem; }
+.nav__contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  font-size: .9375rem;
+  line-height: 1.45;
+  color: var(--ink-on-dark);
+}
+.nav__contact-list a {
+  color: var(--ink-on-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(243, 236, 229, .35);
+  text-underline-offset: 3px;
+}
+.nav__contact-list a:hover { text-decoration-color: var(--gold); }
+.nav__icon {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: .15rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Staggered slide-in (closing is instant, so no delays on the way out) */
+.nav__list li,
+.nav__cta,
+.nav__contact {
+  opacity: 0;
+  transform: translateX(2rem);
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+}
+.nav__menu.is-open .nav__list li,
+.nav__menu.is-open .nav__cta,
+.nav__menu.is-open .nav__contact {
+  opacity: 1;
+  transform: none;
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.nav__menu.is-open .nav__list li:nth-child(1) { transition-delay: .18s; }
+.nav__menu.is-open .nav__list li:nth-child(2) { transition-delay: .24s; }
+.nav__menu.is-open .nav__list li:nth-child(3) { transition-delay: .30s; }
+.nav__menu.is-open .nav__list li:nth-child(4) { transition-delay: .36s; }
+.nav__menu.is-open .nav__list li:nth-child(5) { transition-delay: .42s; }
+.nav__menu.is-open .nav__cta     { transition-delay: .50s; }
+.nav__menu.is-open .nav__contact { transition-delay: .58s; }
+
+/* While the panel is open: event bar tucks away, header sits on the navy panel */
+.site-header.menu-open .topbar { max-height: 0; }
+.site-header.menu-open .nav { background: var(--navy); box-shadow: none; }
+.site-header.menu-open .nav__logo-img--light { display: block; }
+.site-header.menu-open .nav__logo-img--dark { display: none; }
+.site-header.menu-open .nav__toggle { color: var(--linen); border-color: rgba(243, 236, 229, .6); }
+body.menu-locked { overflow: hidden; }
+
+/* Tablet: give the panel a comfortable reading width */
+@media (min-width: 48em) and (max-width: 74.99em) {
+  .nav__menu > * { width: 100%; max-width: 32rem; }
+  .nav__cta { max-width: 32rem; }
+}
+
+/* ---------- Desktop nav (75em / 1200px: below this the six links + button don't fit on one line) ---------- */
+@media (min-width: 75em) {
+  .nav__inner { min-height: 5.5rem; }
+  .nav__logo { width: 12.5rem; }
+  .nav__toggle { display: none; }
+
+  .nav__menu {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+    overflow: visible;
+    background: none;
+    visibility: visible;
+    clip-path: none;
+    transition: none;
+  }
+  .nav__menu { -webkit-mask-image: none; mask-image: none; }
+  .nav__menu::after,
+  .nav__contact,
+  .nav__num,
+  .nav__arrow { display: none; }
+
+  .nav__list { display: flex; gap: .25rem; border: 0; }
+  .nav__list li { border: 0; }
+  .nav__list li,
+  .nav__cta { opacity: 1; transform: none; transition: none; }
+  .nav__cta { width: auto; }
+
+  .nav__link {
+    position: relative;
+    display: block;
+    padding: .75rem .85rem;
+    white-space: nowrap;
+    font-size: .9375rem;
+    font-weight: 600;
+  }
+  .nav__link:hover .nav__label,
+  .nav__link:focus-visible .nav__label { color: inherit; }
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: .85rem; right: .85rem; bottom: .45rem;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s var(--ease);
+  }
+  .nav__link:hover { color: var(--linen); }
+  .nav__link:hover::after { transform: scaleX(1); }
+
+  .site-header.is-scrolled .nav__link,
+  .site-header.is-scrolled .nav__link:hover { color: var(--navy); }
+}
+
+/* ==========================================================================
+   2. Hero — rotating photos, headline, CTAs
+   ========================================================================== */
+.hero {
+  --storefront-h: 4.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(40rem, 100svh);
+  padding-top: 8.5rem;                                  /* clears fixed header */
+  padding-bottom: calc(var(--storefront-h) + 4.5rem);   /* room for controls + storefront row */
+  background: var(--navy);
+  color: var(--ink-on-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---------- Slides ---------- */
+.hero__slides,
+.hero__overlay { position: absolute; inset: 0; z-index: -1; }
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+.hero__slide.is-active { opacity: 1; }
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Slow zoom ("Ken Burns"): odd photos ease in, even photos ease out.
+   Runs for the full time a photo is on screen (7s hold + 1.6s fade out).
+   .is-leaving keeps the outgoing photo moving while it fades, so it never snaps back. */
+.hero__slide.is-active img,
+.hero__slide.is-leaving img {
+  animation: hero-zoom-in 9.5s linear forwards;
+}
+.hero__slide:nth-child(even).is-active img,
+.hero__slide:nth-child(even).is-leaving img {
+  animation-name: hero-zoom-out;
+}
+.hero.is-paused .hero__slide img { animation-play-state: paused; }
+
+@keyframes hero-zoom-in {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+@keyframes hero-zoom-out {
+  from { transform: scale(1.1); }
+  to   { transform: scale(1); }
+}
+/* Per-photo focal points (keep faces in frame on narrow screens) */
+.hero__slide:nth-child(1) img { object-position: 35% 30%; }
+.hero__slide:nth-child(2) img { object-position: 62% 35%; }
+.hero__slide:nth-child(3) img { object-position: 55% 30%; }
+.hero__slide:nth-child(4) img { object-position: 65% 35%; }
+
+/* Per-photo tone: the brightest photos are dimmed a little so the wash can stay
+   light. Values were checked so all hero text keeps 4.5:1 contrast on every photo. */
+.hero__slide:nth-child(1) img { filter: brightness(.88); }
+.hero__slide:nth-child(4) img { filter: brightness(.72); }
+
+/* Navy wash (kept light so the photos show; text-shadow below adds a little extra lift). On phones the text spans the full width, so the wash does too. */
+.hero__overlay {
+  background:
+    linear-gradient(180deg, rgba(5, 46, 102, .68) 0%, rgba(5, 46, 102, .62) 35%, rgba(5, 46, 102, .82) 100%);
+}
+
+/* ---------- Content ---------- */
+.hero__inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.hero__content {
+  max-width: 48rem;
+  text-shadow: 0 1px 2px rgba(3, 20, 48, .35), 0 2px 18px rgba(3, 20, 48, .35);
+}
+.hero__content .btn { text-shadow: none; }
+
+.hero__title {
+  margin-top: 1.25rem;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-title);
+  color: #fff;
+  text-wrap: balance;
+}
+.hero__title { --mark-delay: .7s; }   /* underlines start once the page has settled */
+
+.hero__lede {
+  margin-top: 1.25rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  color: var(--ink-on-dark);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 2rem;
+}
+
+.hero__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.25rem;
+  margin-top: 2rem;
+  font-size: var(--fs-small);
+  color: var(--ink-on-dark);
+}
+.hero__details li {
+  position: relative;
+  padding-left: 1rem;
+}
+.hero__details li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .55em;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ---------- Badge (static — no rotation, by design for WCAG 2.2.2) ---------- */
+.hero__badge { display: none; }
+
+/* ---------- Slide controls ---------- */
+.hero__controls {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: calc(var(--storefront-h) + 1rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero__dots { display: flex; }
+.hero__dot {
+  position: relative;
+  width: 2.75rem;   /* 44px hit area */
+  height: 2.75rem;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.hero__dot::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: .625rem; height: .625rem;
+  border: 2px solid var(--linen);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color .25s var(--ease), width .25s var(--ease);
+}
+.hero__dot.is-active::before {
+  width: 1.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.hero__pause {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .4rem 1rem .4rem .85rem;
+  background: rgba(5, 46, 102, .55);
+  border: 2px solid rgba(243, 236, 229, .55);
+  border-radius: var(--radius-pill);
+  color: var(--linen);
+  font-size: .8125rem;
+  font-weight: 600;
+}
+.hero__pause:hover { border-color: var(--linen); }
+.hero__pause-label { white-space: nowrap; }
+
+/* Small phones: icon-only button (label stays available to screen readers) */
+@media (max-width: 29.99em) {
+  .hero__pause { width: 2.75rem; padding: 0; justify-content: center; }
+  .hero__pause-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}
+
+/* Pause icon = two bars; play icon = triangle */
+.hero__pause-icon {
+  position: relative;
+  width: .75rem; height: .75rem;
+}
+.hero__pause-icon::before,
+.hero__pause-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 3px; height: 100%;
+  background: currentColor;
+  border-radius: 1px;
+}
+.hero__pause-icon::before { left: 1px; }
+.hero__pause-icon::after  { right: 1px; }
+
+.hero__pause[aria-pressed="true"] .hero__pause-icon::after { display: none; }
+.hero__pause[aria-pressed="true"] .hero__pause-icon::before {
+  left: 1px;
+  width: 0; height: 0;
+  background: none;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent currentColor;
+}
+
+/* Nothing to control without JS, or with one photo (reduced motion) */
+.hero:not(.is-rotating) .hero__controls { display: none; }
+
+/* ---------- Storefront row (brand banner) ---------- */
+.hero__storefronts {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: var(--storefront-h);
+  /* Row of shops repeats across the width; cream ground starts at the street line (≈82% down the art) */
+  background:
+    url("../images/brand/storefronts.svg") repeat-x center bottom / auto 100%,
+    linear-gradient(to top, var(--cream) 18%, transparent 18%);
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 48em) {
+  .hero {
+    --storefront-h: 6rem;
+    padding-top: 10rem;
+  }
+}
+
+/* ---------- Desktop: wash from the left, badge on the right ---------- */
+@media (min-width: 64em) {
+  .hero {
+    --storefront-h: 7rem;
+    min-height: max(46rem, 100svh);
+    padding-top: 11rem;
+  }
+  .hero__overlay {
+    background:
+      linear-gradient(90deg, rgba(5, 46, 102, .84) 0%, rgba(5, 46, 102, .72) 42%, rgba(5, 46, 102, .25) 68%, rgba(5, 46, 102, 0) 100%),
+      linear-gradient(180deg, rgba(5, 30, 66, .3) 0%, transparent 25%, transparent 75%, rgba(5, 30, 66, .35) 100%);
+  }
+
+  .hero__badge {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    width: 10.5rem;
+    aspect-ratio: 1;
+  }
+  .hero__badge-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero__badge-bg {
+    fill: rgba(5, 46, 102, .78);
+    stroke: var(--gold);
+    stroke-width: 2;
+  }
+  .hero__badge-text {
+    fill: var(--linen);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+  .hero__badge-icon {
+    width: 5.5rem;
+    padding: .3rem;
+    background: var(--cream);
+    border-radius: 50%;
+  }
+}
+
+/* Reduce motion: no zoom, no crossfade (hero.js also skips rotation) */
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide img { animation: none !important; transform: none; }
+}
+
+/* ==========================================================================
+   3. About — "One generation is asking…"
+   Three bands: intro (heading | copy), the two-generation photo pair with a
+   handoff arrow, then the "That is why we created AcquireLocal" statement.
+   ========================================================================== */
+.about {
+  padding-top: clamp(4rem, 3rem + 5vw, 7.5rem);
+  /* faint wine diamond texture, matching the navy one in The Event */
+  background: url("../images/brand/pattern-diamond-wine.svg") center top / 56px 56px, var(--cream);
+}
+
+/* Lower band: wine starts halfway down the photos, so they straddle cream + wine */
+.about__band {
+  --band-start: 8rem;
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  padding-bottom: clamp(4rem, 3rem + 4vw, 6.5rem);
+}
+.about__band::before {
+  content: "";
+  position: absolute;
+  inset: var(--band-start) 0 0;
+  z-index: -1;
+  background: url("../images/brand/pattern-diamond.svg") center top / 56px 56px, var(--wine);
+}
+@media (min-width: 64em) {
+  .about__band { --band-start: 13rem; }
+}
+
+/* ---------- Intro ---------- */
+.about__intro {
+  display: grid;
+  gap: 1.5rem;
+}
+.about__title { color: var(--navy); }
+.about__text {
+  font-size: var(--fs-body-lg);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.about__text strong { font-weight: 600; color: var(--navy); }
+.about__copy .btn--arrow { margin-top: 1.75rem; }
+
+/* ---------- Photo pair ---------- */
+.about__pair {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+}
+.about__photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 44px -26px rgba(40, 10, 20, .55);
+}
+.about__photo picture { height: 100%; }
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about__photo:first-of-type img { object-position: 40% 28%; }   /* keeps her face + hands in frame */
+
+.about__tag {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: .5rem 1rem;
+  background: var(--cream);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: .875rem;
+  color: var(--navy);
+  box-shadow: 0 6px 18px -8px rgba(5, 46, 102, .35);
+}
+
+/* Gold handoff arrow: sits between the photos (points down on phones, right on wider screens) */
+.about__handoff {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 5px solid var(--cream);
+  box-shadow: 0 8px 20px -8px rgba(40, 10, 20, .5);
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 1.375rem;
+  font-weight: 700;
+  transform: translate(-50%, -50%);
+}
+.about__handoff span { transform: rotate(90deg); }
+
+/* Hover (mouse/trackpad only): photo lifts, image eases in, label nudges up */
+.about__photo,
+.about__photo img,
+.about__tag {
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+@media (hover: hover) {
+  .about__photo:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 40px -20px rgba(5, 46, 102, .45);
+  }
+  .about__photo:hover img { transform: scale(1.05); }
+  .about__photo:hover .about__tag { transform: translateY(-4px); }
+}
+
+/* ---------- Statement (on wine) ---------- */
+.about__divider {
+  display: block;
+  position: relative;
+  width: 7rem;
+  height: 2px;
+  margin: clamp(3rem, 2.5rem + 3vw, 4.5rem) auto 1.75rem;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+}
+.about__divider::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.about__story {
+  max-width: 54rem;
+  margin: 0 auto;
+  font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem);
+  line-height: 1.5;
+  text-align: center;
+  color: var(--linen);
+}
+/* Words fill from muted rose to linen on scroll. #BFA6A3 is 5.4:1 on wine. */
+.about__story.is-reveal-ready .reveal-word {
+  color: #BFA6A3;
+  transition: color .35s var(--ease);
+}
+.about__story.is-reveal-ready .reveal-word.is-lit { color: var(--linen); }
+
+/* ---------- Tablet + ---------- */
+@media (min-width: 48em) {
+  .about__pair { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .about__handoff span { transform: none; }
+  .about__tag { left: 1.25rem; bottom: 1.25rem; }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 64em) {
+  /* Label spans the top; headline and copy start on the same line beneath it */
+  .about__intro {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    column-gap: clamp(3rem, 1rem + 4vw, 5.5rem);
+    row-gap: 1.5rem;
+    align-items: start;
+  }
+  .about__eyebrow { grid-column: 1 / -1; }
+  .about__title { position: sticky; top: var(--sticky-top); }   /* shorter column stays put while the copy scrolls */
+  .about__copy { padding-top: .5rem; }      /* lines the first text line up with the headline's cap height */
+  .about__handoff { width: 4.5rem; height: 4.5rem; font-size: 1.625rem; border-width: 6px; }
+}
+
+/* ==========================================================================
+   4. The Event — navy section, awning divider, ticket card
+   ========================================================================== */
+.event {
+  --notch: 1.75rem;
+  position: relative;
+  padding-block: calc(clamp(4rem, 3rem + 5vw, 7rem) + clamp(2.5rem, 1.5rem + 4vw, 5.5rem) * .6) clamp(4.5rem, 3.5rem + 5vw, 7.5rem);
+  /* faint brand-diamond texture over navy */
+  background: url("../images/brand/pattern-diamond.svg") center top / 56px 56px, var(--navy);
+  color: var(--ink-on-dark);
+}
+/* Soft wave edge flowing down from the cream section above (two layers: solid + 20% echo) */
+.event::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;            /* -1px hides any hairline seam */
+  height: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  background: url("../images/brand/divider-wave.svg") no-repeat center top / 100% 100%;
+  pointer-events: none;
+}
+
+/* ---------- Intro ---------- */
+.event__intro {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+}
+.event__title { color: #fff; }
+.event__text {
+  max-width: 40rem;
+  font-size: var(--fs-body-lg);
+  line-height: 1.55;
+  color: var(--ink-on-dark);
+}
+.event__text strong { font-weight: 600; color: #fff; }
+
+/* At-a-glance stats (all facts from the docx): one horizontal row under the headline.
+   Phones: a swipeable strip (scroll-snap, no auto-motion). */
+.event__head { display: grid; gap: 1.75rem; }
+
+.event .event__stats {
+  display: flex;
+  gap: .75rem;
+  margin-inline: calc(var(--gutter) * -1);      /* strip runs to the screen edge on phones */
+  padding: 0 var(--gutter) .5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+.event .event__stats::-webkit-scrollbar { display: none; }
+.event__stats:focus-visible { outline-offset: -3px; }
+.event__stats li {
+  flex: 0 0 auto;
+  min-width: 7.5rem;
+  display: grid;
+  align-content: start;
+  gap: .3rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(243, 236, 229, .16);
+  border-radius: .875rem;
+  background: rgba(243, 236, 229, .05);
+  scroll-snap-align: start;
+}
+.event__stat-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.event__stat-label {
+  font-size: .8125rem;
+  line-height: 1.35;
+  color: var(--ink-on-dark);
+}
+
+.event__copy { display: grid; gap: 1.25rem; }
+
+/* "Swipe for more" hint — phones/tablets only, where the strip scrolls */
+.event__swipe {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: -1rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-on-dark-muted);
+}
+.event__swipe svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.event__swipe-arrow {
+  color: var(--gold);
+  animation: swipe-nudge 1.6s var(--ease) 3;      /* nudges 3 times, then rests (under 5s) */
+}
+@keyframes swipe-nudge {
+  0%, 60%, 100% { transform: translateX(0); }
+  30%           { transform: translateX(5px); }
+}
+
+@media (min-width: 64em) {
+  .event__swipe { display: none; }
+  .event__intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    column-gap: clamp(3rem, 1rem + 4vw, 5.5rem);
+    row-gap: 1.25rem;
+    align-items: start;
+  }
+  .event__eyebrow { grid-column: 1 / -1; }
+  .event__head { position: sticky; top: var(--sticky-top); }   /* headline + stats stay put while the copy scrolls */
+  .event__copy { padding-top: .35rem; }
+
+  /* Fits the column: four equal cells in one row, no scrolling */
+  .event .event__stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .5rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .event__stats li { min-width: 0; padding: .9rem .85rem; }
+  .event__stat-num { font-size: clamp(1.25rem, .6rem + 1vw, 1.6rem); }
+  .event__stat-label { font-size: .8125rem; white-space: nowrap; }
+}
+
+/* ---------- Ticket ---------- */
+.ticket {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 1.25rem;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .55);
+}
+
+/* Date stub */
+.ticket__date {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: .75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--wine);
+  color: var(--linen);
+  border-radius: 1.25rem 1.25rem 0 0;
+  font-family: var(--font-head);
+  text-transform: uppercase;
+}
+.ticket__dow,
+.ticket__month {
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .14em;
+}
+.ticket__day {
+  font-weight: 700;
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+/* Perforation: dashed line with a notch cut at each end (phone = horizontal) */
+.ticket__perf {
+  position: relative;
+  height: 0;
+  margin-inline: calc(var(--notch) / 2 + .5rem);
+  border-top: 2px dashed rgba(5, 46, 102, .22);
+}
+.ticket__perf::before,
+.ticket__perf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: var(--notch);
+  height: var(--notch);
+  border-radius: 50%;
+  background: var(--navy);
+  transform: translateY(-50%);
+}
+.ticket__perf::before { left:  calc(var(--notch) / -2 - .5rem - var(--notch) / 2); }
+.ticket__perf::after  { right: calc(var(--notch) / -2 - .5rem - var(--notch) / 2); }
+/* The first perforation sits on the wine stub's edge */
+.ticket__date + .ticket__perf { border-top-color: transparent; }
+
+/* Main */
+.ticket__main {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem 2rem;
+}
+.ticket__title { color: var(--navy); font-weight: 700; }
+.ticket__text { color: var(--ink); }
+
+.ticket .ticket__details {            /* .ticket prefix beats the ul[class] reset */
+  display: grid;
+  gap: 1.25rem;
+  margin-top: .5rem;
+  padding-top: 1.75rem;              /* details are last now: divider above only */
+  border-top: 1px solid rgba(5, 46, 102, .12);
+}
+.ticket__details li {
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+}
+.ticket__details div { display: grid; gap: .1rem; }
+.ticket__icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: .55rem;
+  border-radius: 50%;
+  background: rgba(232, 161, 19, .16);
+  fill: none;
+  stroke: var(--wine);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ticket__label {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.ticket__value { font-weight: 600; line-height: 1.45; color: var(--navy); }
+.ticket__link {
+  justify-self: start;
+  font-size: .9375rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.ticket__link:hover { color: var(--navy); }
+.ticket__cta { justify-self: start; }
+
+/* Phones: full-width Register button */
+@media (max-width: 47.99em) {
+  .ticket__cta { width: 100%; justify-content: space-between; }
+}
+
+/* QR stub — hidden on phones (they're already on the device that would scan it) */
+.ticket__perf--qr,
+.ticket__qr { display: none; }
+
+/* ---------- Tablet + : side-by-side ticket ---------- */
+@media (min-width: 48em) {
+  .ticket {
+    grid-template-columns: 9.5rem 0 minmax(0, 1fr) 0 13rem;
+  }
+  .ticket__date {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    padding: 2rem 1rem;
+    border-radius: 1.25rem 0 0 1.25rem;
+  }
+  .ticket__day { font-size: 4.5rem; }
+
+  /* Perforations turn vertical: notches at top + bottom */
+  .ticket__perf {
+    height: auto;
+    margin: calc(var(--notch) / 2 + .5rem) 0;
+    border-top: 0;
+    border-left: 2px dashed rgba(5, 46, 102, .22);
+  }
+  .ticket__date + .ticket__perf { border-left-color: transparent; }
+  .ticket__perf::before,
+  .ticket__perf::after {
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ticket__perf::before { top:    calc(var(--notch) / -2 - .5rem - var(--notch) / 2); right: auto; }
+  .ticket__perf::after  { bottom: calc(var(--notch) / -2 - .5rem - var(--notch) / 2); right: auto; }
+
+  .ticket__main { padding: 2.25rem 2.25rem 2.5rem; }
+
+  .ticket__perf--qr { display: block; }
+  .ticket__qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .9rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .ticket__qr img {
+    width: 8.5rem;
+    height: 8.5rem;
+    padding: .75rem;
+    background: #fff;
+    border-radius: .75rem;
+    box-shadow: 0 0 0 1px rgba(5, 46, 102, .12);
+  }
+  .ticket__qr-text {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: var(--fs-eyebrow);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--wine);
+  }
+}
+
+/* ---------- Ticket motion ----------
+   Short bursts only (each under 5s, per WCAG 2.2.2), replayed whenever the
+   ticket scrolls back into view. in-view.js toggles .is-in-view.
+   Reduced motion: the global rule in global.css stops them. */
+.ticket__arrow {
+  display: none;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-bottom: -.35rem;
+  fill: var(--gold);
+  transform: translateX(1rem);          /* puts the arrow tip over the middle of the QR code */
+}
+@media (min-width: 48em) {
+  .ticket__arrow { display: block; }
+}
+.ticket.is-in-view .ticket__arrow {
+  animation: ticket-arrow-bounce 2.4s cubic-bezier(.45, 0, .55, 1) .4s 2;
+}
+.ticket.is-in-view .ticket__cta {
+  animation: ticket-cta-hop 2.2s cubic-bezier(.45, 0, .55, 1) 1.2s 2;
+}
+.ticket__cta:hover,
+.ticket__cta:focus-visible { animation-play-state: paused; }
+
+/* bounce, bounce … rest */
+@keyframes ticket-arrow-bounce {
+  0%, 44%, 100% { transform: translate(1rem, 0); }
+  11%           { transform: translate(1rem, 9px); }
+  22%           { transform: translate(1rem, 0); }
+  33%           { transform: translate(1rem, 6px); }
+}
+/* hop, small hop … rest */
+@keyframes ticket-cta-hop {
+  0%, 40%, 100% { transform: translateY(0); }
+  10%           { transform: translateY(-7px); }
+  20%           { transform: translateY(0); }
+  28%           { transform: translateY(-3px); }
+}
+
+@media (min-width: 64em) {
+  .ticket { grid-template-columns: 11rem 0 minmax(0, 1fr) 0 15rem; }
+  .ticket__main { padding: 2.75rem 3rem 3rem; }
+  .ticket .ticket__details { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.25fr) minmax(0, .8fr); gap: 1.75rem; }
+  .ticket__details li { flex-direction: column; gap: .75rem; }
+  .ticket__qr img { width: 9.5rem; height: 9.5rem; }
+}
+
+/* ==========================================================================
+   5. Why It Matters — header row, navy stat card with business tabs, photo
+   ========================================================================== */
+.why {
+  --wave-h: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  position: relative;
+  padding-block: calc(clamp(4rem, 3rem + 5vw, 7rem) + var(--wave-h) * .6) clamp(4.5rem, 3.5rem + 5vw, 7.5rem);
+  /* faint street-grid texture */
+  background: url("../images/brand/pattern-grid.svg") center top / 240px 240px, var(--cream);
+}
+.why::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: var(--wave-h);
+  background: url("../images/brand/divider-wave-navy.svg") no-repeat center top / 100% 100%;
+  pointer-events: none;
+}
+
+/* ---------- Header row ---------- */
+.why__intro {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  max-width: 50rem;
+  margin: 0 auto clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  text-align: center;                 /* centered header — breaks up the run of left-aligned intros */
+}
+.why__title { color: var(--navy); max-width: 22ch; }
+
+.why__text {
+  font-size: var(--fs-body-lg);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.why__text strong { font-weight: 600; color: var(--navy); }
+.why__copy .signup { margin: 1.75rem auto 0; }
+
+.why__copy { max-width: 40rem; }
+
+/* ---------- Body: card + photo ---------- */
+.why__body {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 64em) {
+  .why__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; }
+}
+
+.why__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  border-radius: 1.25rem;
+  background: url("../images/brand/pattern-diamond.svg") center / 56px 56px, var(--navy);
+  color: var(--ink-on-dark);
+}
+
+.why__stat {
+  display: grid;
+  gap: .5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(243, 236, 229, .18);
+}
+.why__num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 2.5rem + 5vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;   /* digits don't jiggle while counting */
+}
+.why__stat-label {
+  max-width: 30rem;
+  font-size: var(--fs-body-lg);
+  line-height: 1.45;
+  color: var(--ink-on-dark);
+}
+
+.why__lead {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Tabs: pill rows (white track like the inspo; gold when selected) */
+.why__tabs {
+  display: grid;
+  gap: .5rem;
+}
+.why__tab {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: .45rem 1.25rem .45rem .45rem;
+  border: 1px solid rgba(243, 236, 229, .2);
+  border-radius: var(--radius-pill);
+  background: rgba(243, 236, 229, .06);
+  color: var(--linen);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: left;
+  transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
+}
+.why__tab img {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: .2rem;
+  border-radius: 50%;
+  background: var(--cream);
+}
+.why__tab:hover { border-color: var(--gold); transform: translateX(4px); }
+.why__tab.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+/* Photo panel */
+.why__media {
+  position: relative;
+  min-height: 18rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: var(--navy);
+}
+.why__photo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+.why__photo[hidden] { display: block; visibility: hidden; opacity: 0; }   /* keep it fading, not popping */
+.why__photo {
+  opacity: 1;
+  transition: opacity .6s var(--ease), visibility 0s;
+}
+.why__photo[hidden] { transition: opacity .6s var(--ease), visibility 0s linear .6s; }
+.why__photo picture { height: 100%; }
+.why__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 1.2s var(--ease);
+}
+.why__photo:not([hidden]) img { transform: scale(1); }
+#why-panel-firm img { object-position: 50% 30%; }
+
+@media (min-width: 64em) {
+  .why__media { aspect-ratio: auto; }     /* stretch to the card's height */
+}
+
+/* ==========================================================================
+   Back to top
+   ========================================================================== */
+.to-top {
+  position: fixed;
+  right: var(--gutter);
+  bottom: 1.25rem;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 10px 24px -10px rgba(5, 46, 102, .6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1rem);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s, background-color .2s var(--ease);
+}
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s, background-color .2s var(--ease);
+}
+.to-top:hover { background: #F2B53A; }
+.to-top:hover svg { transform: translateY(-2px); }
+.to-top svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .2s var(--ease);
+}
+body.menu-locked .to-top { opacity: 0; visibility: hidden; }
+
+/* ==========================================================================
+   6. Two Roads — Glacier section, fork-in-the-road graphic, two route cards
+   ========================================================================== */
+.roads {
+  --glacier: #9EC5CC;
+  --wave-h: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  position: relative;
+  padding-block: calc(clamp(4rem, 3rem + 5vw, 7rem) + var(--wave-h) * .6) clamp(4.5rem, 3.5rem + 5vw, 7.5rem);
+  background: var(--glacier);
+  color: var(--ink);
+}
+.roads::before {          /* cream wave from Why It Matters */
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: var(--wave-h);
+  background: url("../images/brand/divider-wave-cream.svg") no-repeat center top / 100% 100%;
+  pointer-events: none;
+}
+
+/* ---------- Header: mirror of About (text left, headline right) ---------- */
+.roads__intro { display: grid; gap: 1.25rem; }
+.roads__heading { display: grid; gap: 1.25rem; }
+.roads__title { color: var(--navy); }
+.roads__text {
+  max-width: 34rem;
+  font-size: var(--fs-body-lg);
+  line-height: 1.55;
+}
+.roads__text strong { font-weight: 600; color: var(--navy); }
+
+@media (min-width: 64em) {
+  .roads__intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-areas: "text heading";
+    column-gap: clamp(3rem, 1rem + 4vw, 5.5rem);
+    align-items: end;
+  }
+  .roads__heading { grid-area: heading; }
+  .roads__text { grid-area: text; padding-bottom: .4rem; }
+}
+
+/* ---------- Fork graphic (tablet +) ---------- */
+.roads__fork { display: none; }
+
+@media (min-width: 48em) {
+  .roads__fork {
+    position: relative;
+    display: block;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-top: 3.25rem;              /* room for the shop icon */
+  }
+  .roads__start {
+    position: absolute;
+    top: 0; left: 50%;
+    z-index: 1;
+    width: 4.5rem;
+    height: auto;
+    padding: .2rem;
+    border-radius: 50%;
+    background: var(--cream);
+    box-shadow: 0 10px 24px -12px rgba(5, 46, 102, .55);
+    transform: translateX(-50%);
+  }
+  .roads__svg {
+    display: block;
+    width: 100%;
+    height: clamp(7rem, 4rem + 6vw, 10rem);
+    overflow: visible;
+  }
+  .roads__svg path { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .roads__asphalt path { stroke: var(--navy); stroke-width: 22; }
+  .roads__lane path { stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 10 12; }
+
+  /* Draw-in: the road unrolls from the top when it scrolls into view */
+  .roads__svg { clip-path: inset(0 0 100% 0); transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1) .15s; }
+  .roads__fork.is-in-view .roads__svg { clip-path: inset(0 0 0 0); }
+}
+
+/* ---------- Cards ---------- */
+.roads__cards {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+/* Phones: a vertical road runs down the left, cards hang off it */
+@media (max-width: 47.99em) {
+  .roads__cards { padding-left: 2.25rem; }
+  .roads__cards::before {
+    content: "";
+    position: absolute;
+    left: .45rem; top: -1rem; bottom: 1.5rem;
+    width: 14px;
+    border-radius: 7px;
+    background:
+      repeating-linear-gradient(to bottom, var(--gold) 0 10px, transparent 10px 22px) center / 2px 100% no-repeat,
+      var(--navy);
+  }
+  .road::before {               /* node where each card meets the road */
+    content: "";
+    position: absolute;
+    left: -2.1rem; top: 1.75rem;
+    width: 1.25rem; height: 1.25rem;
+    border: 3px solid var(--navy);
+    border-radius: 50%;
+    background: var(--gold);
+  }
+}
+
+@media (min-width: 48em) {
+  .roads__cards { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0; }
+}
+
+.road {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem);
+  border-radius: 1.25rem;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+@media (hover: hover) {
+  .road:hover { transform: translateY(-6px); }
+}
+
+.road--primary {
+  background: url("../images/brand/pattern-diamond.svg") center / 56px 56px, var(--navy);
+  color: var(--ink-on-dark);
+  box-shadow: 0 30px 50px -28px rgba(5, 30, 66, .7);
+}
+.road--secondary {
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 0 24px 40px -28px rgba(5, 30, 66, .5);
+}
+
+.road__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+.road__num {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.road--secondary .road__num { color: var(--wine); }
+
+.road__badge {
+  padding: .35rem .85rem;
+  border-radius: var(--radius-pill);
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: .8125rem;
+}
+.road__badge--soft { background: var(--glacier); }
+
+.road__title { font-weight: 700; }
+.road--primary .road__title { color: #fff; }
+.road--secondary .road__title { color: var(--navy); }
+
+.road__text { line-height: 1.6; }
+.road--primary .road__text strong { color: #fff; font-weight: 600; }
+.road--secondary .road__text strong { color: var(--navy); font-weight: 600; }
+
+.road__list-title {
+  margin-top: .5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(243, 236, 229, .18);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.road .road__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem 1rem;
+}
+.road__list li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-weight: 600;
+  font-size: .9375rem;
+  line-height: 1.3;
+  color: var(--linen);
+}
+.road__icon {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: .45rem;
+  border-radius: 50%;
+  background: rgba(232, 161, 19, .16);
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 29.99em) {
+  .road .road__list { grid-template-columns: 1fr; }
+}
+
+/* ---------- Closing note ---------- */
+.roads__note {
+  max-width: 44rem;
+  margin: clamp(2.5rem, 2rem + 2vw, 3.5rem) auto 0;
+  text-align: center;
+  font-size: var(--fs-body);
+  color: var(--ink);
+}
+.roads__note a {
+  display: inline-block;
+  margin-top: .25rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--navy);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.roads__note a:hover { color: var(--wine); text-decoration-color: var(--wine); }
