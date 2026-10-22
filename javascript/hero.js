@@ -43,13 +43,13 @@
 
     slides[current].classList.remove("is-active");
     dots[current].classList.remove("is-active");
-    dots[current].removeAttribute("aria-current");
+    dots[current].setAttribute("aria-pressed", "false");
 
     current = (index + slides.length) % slides.length;
 
     slides[current].classList.add("is-active");
     dots[current].classList.add("is-active");
-    dots[current].setAttribute("aria-current", "true");
+    dots[current].setAttribute("aria-pressed", "true");
   }
 
   function start() {

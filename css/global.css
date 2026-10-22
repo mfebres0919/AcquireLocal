@@ -104,7 +104,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;   /* keeps anchored headings clear of the sticky nav */
+  scroll-padding-top: 8.5rem;   /* keeps anchors + keyboard focus clear of the sticky header (WCAG 2.4.11) */
 }
 /* Lenis does its own smoothing; CSS smooth scroll on top would fight it */
 html.lenis.lenis-smooth { scroll-behavior: auto; }

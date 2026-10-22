@@ -1254,6 +1254,14 @@ body.menu-locked { overflow: hidden; }
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(243, 236, 229, .18);
 }
+.why__kicker {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-on-dark);
+}
 .why__num {
   font-family: var(--font-head);
   font-weight: 700;
@@ -2204,8 +2212,8 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   color: var(--ink-on-dark-muted);
 }
 .footer__bottom ul { display: flex; gap: 1.5rem; }
-.footer__credit a:hover strong { color: var(--gold); }
-.footer__credit strong {
+.footer__credit a:hover .footer__credit-name { color: var(--gold); }
+.footer__credit-name {
   font-weight: 700;
   color: #fff;
   text-decoration: underline;
@@ -2309,3 +2317,121 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
     box-shadow: 0 24px 60px -12px rgba(0, 0, 0, .55) !important;
   }
 }
+
+/* ==========================================================================
+   10. Legal pages — Accessibility Statement + Privacy Policy
+   ========================================================================== */
+/* Photo banner */
+.legal-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 10rem 0 clamp(4.5rem, 3rem + 4vw, 6.5rem);
+  background: var(--navy);
+  color: var(--ink-on-dark);
+  text-align: center;
+}
+.legal-hero__bg { position: absolute; inset: 0; z-index: -2; }
+.legal-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+.legal-hero--accessibility .legal-hero__bg img { object-position: 50% 35%; }   /* owner in his doorway */
+.legal-hero--privacy .legal-hero__bg img { object-position: 62% 30%; }         /* owner at her laptop */
+.legal-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(5, 46, 102, .86) 0%, rgba(5, 46, 102, .8) 50%, rgba(5, 30, 66, .92) 100%);
+}
+.legal-hero__inner { display: grid; justify-items: center; gap: 1.25rem; }
+.legal-hero__title {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  color: #fff;
+}
+.legal-hero__intro {
+  max-width: 40rem;
+  font-size: var(--fs-body-lg);
+  line-height: 1.55;
+}
+.legal-hero__meta { font-size: var(--fs-small); color: var(--ink-on-dark-muted); }
+
+/* Body: sticky contents list + readable column */
+.legal {
+  padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  background: url("../images/brand/pattern-diamond-wine.svg") center top / 56px 56px, var(--cream);
+}
+.legal__grid { display: grid; gap: 2.5rem; }
+@media (min-width: 64em) {
+  .legal__grid { grid-template-columns: 16rem minmax(0, 46rem); gap: 4.5rem; justify-content: center; }
+  .legal__toc { position: sticky; top: var(--sticky-top); align-self: start; }
+}
+
+.legal__toc {
+  padding: 1.5rem;
+  border: 1px solid rgba(5, 46, 102, .12);
+  border-radius: 1rem;
+  background: #fff;
+}
+.legal__toc-title {
+  margin-bottom: .75rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.legal__toc ol { display: grid; gap: .15rem; margin: 0; padding: 0; list-style: none; counter-reset: toc; }
+.legal__toc li { counter-increment: toc; }
+.legal__toc a {
+  display: flex;
+  gap: .6rem;
+  padding: .4rem 0;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: .9375rem;
+  color: var(--navy);
+  text-decoration: none;
+}
+.legal__toc a::before { content: counter(toc, decimal-leading-zero); color: var(--gold); font-size: .8125rem; padding-top: .1rem; }
+.legal__toc a:hover { color: var(--wine); text-decoration: underline; text-underline-offset: 3px; }
+
+.legal__body { display: grid; gap: 2.75rem; }
+.legal__section { display: grid; gap: 1rem; scroll-margin-top: var(--sticky-top); }
+.legal__h2 {
+  padding-bottom: .75rem;
+  border-bottom: 2px solid var(--gold);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--navy);
+}
+.legal__section p,
+.legal__section li { font-size: var(--fs-body); line-height: 1.7; color: var(--ink); }
+.legal__section strong { font-weight: 600; color: var(--navy); }
+.legal__section a {
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.legal__section a:hover { color: var(--wine); }
+.legal__section .legal__list { display: grid; gap: .75rem; margin: 0; padding-left: 1.25rem; list-style: disc; }   /* beats the ul[class] reset */
+.legal__list li::marker { color: var(--gold); }
+
+.legal__callout {
+  display: grid;
+  gap: .5rem;
+  padding: 1.5rem 1.75rem;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 1rem 1rem 0;
+  background: var(--navy);
+}
+.legal__callout p { color: var(--ink-on-dark); }
+.legal__callout .legal__callout-title { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h4); color: #fff; }
+.legal__callout a { color: #fff; }
+.legal__callout a:hover { color: var(--gold); }
+
+/* Current page in the footer */
+.footer a[aria-current="page"] { color: var(--gold); }

@@ -1,8 +1,7 @@
 /* ==========================================================================
    AcquireLocal — why.js
    1. Counts the 17,600 stat up from 0 the first time it scrolls into view.
-   2. Business tabs: switch the photo. Arrow keys / Home / End move between
-      tabs (WAI-ARIA tabs pattern, automatic activation).
+   2. Business buttons (aria-pressed): pressing one shows its photo.
    ========================================================================== */
 (function () {
   "use strict";
@@ -33,31 +32,21 @@
     countObserver.observe(num);
   }
 
-  /* ---------- 2. Tabs ---------- */
+  /* ---------- 2. Business buttons: each one shows its photo ---------- */
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".why__tab"));
   if (!tabs.length) return;
 
-  function select(tab, focus) {
+  function select(tab) {
     tabs.forEach(function (t) {
       var on = t === tab;
       t.classList.toggle("is-active", on);
-      t.setAttribute("aria-selected", String(on));
-      t.tabIndex = on ? 0 : -1;
+      t.setAttribute("aria-pressed", String(on));
       var panel = document.getElementById(t.getAttribute("aria-controls"));
       if (panel) panel.hidden = !on;
     });
-    if (focus) tab.focus();
   }
 
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { select(tab, false); });
-    tab.addEventListener("keydown", function (e) {
-      var next = null;
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
-      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
-      else if (e.key === "Home") next = tabs[0];
-      else if (e.key === "End") next = tabs[tabs.length - 1];
-      if (next) { e.preventDefault(); select(next, true); }
-    });
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () { select(tab); });
   });
 })();
