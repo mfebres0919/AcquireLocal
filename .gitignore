@@ -1,0 +1,14 @@
+# ---- Private / source material: never publish ----
+documentation/
+images/photo-library/
+images/PNG */
+images/SVG */
+images/hero-brooklyn.jpg
+
+# Full font families (the site only loads the subsets in fonts/web/)
+fonts/Inter/
+fonts/Poppins/
+fonts/Playfair_Display/
+
+# OS clutter
+.DS_Store
