@@ -424,8 +424,12 @@
 
         <!-- Fork in the road: draws in on scroll (desktop/tablet). Phones get a vertical road instead. -->
         <div class="roads__fork" aria-hidden="true" data-in-view>
-          <img class="roads__start" src="images/brand/icon-shop.svg" alt="" width="170" height="165">
+          <img class="roads__start" src="images/brand/icon-cafe-ring.svg" alt="" width="170" height="165">
           <svg class="roads__svg" viewBox="0 0 1000 200" preserveAspectRatio="none" focusable="false">
+            <g class="roads__curb">
+              <path d="M500 0V60C500 130 250 110 250 200"/>
+              <path d="M500 60C500 130 750 110 750 200"/>
+            </g>
             <g class="roads__asphalt">
               <path d="M500 0V60C500 130 250 110 250 200"/>
               <path d="M500 60C500 130 750 110 750 200"/>
@@ -590,6 +594,10 @@
         </div>
 
         <div class="join__card">
+          <picture class="join__card-bg" aria-hidden="true">
+            <source type="image/webp" srcset="images/join/join-storefront-800.webp 800w, images/join/join-storefront-1400.webp 1400w" sizes="(min-width: 64em) 40rem, 100vw">
+            <img src="images/join/join-storefront-1400.jpg" srcset="images/join/join-storefront-800.jpg 800w, images/join/join-storefront-1400.jpg 1400w" sizes="(min-width: 64em) 40rem, 100vw" alt="" loading="lazy">
+          </picture>
           <!-- TODO — FORMSPREE: replace YOUR_FORM_ID once the form is created (same form as the Why It Matters email bar) -->
           <form class="join__form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-signup novalidate>
             <input type="hidden" name="_subject" value="New AcquireLocal community sign-up">

@@ -1497,8 +1497,9 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
     overflow: visible;
   }
   .roads__svg path { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .roads__asphalt path { stroke: var(--linen); stroke-width: 22; }
-  .roads__lane path { stroke: var(--navy); stroke-width: 2.5; stroke-dasharray: 10 12; }
+  .roads__curb path { stroke: #CECECE; stroke-width: 28; }          /* Signal grey edges (brand secondary) */
+  .roads__asphalt path { stroke: var(--slate); stroke-width: 22; }   /* slate-grey asphalt */
+  .roads__lane path { stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 10 12; }
 
   /* Draw-in: the road unrolls from the top when it scrolls into view */
   .roads__svg { clip-path: inset(0 0 100% 0); transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1) .15s; }
@@ -1523,15 +1524,16 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
     width: 14px;
     border-radius: 7px;
     background:
-      repeating-linear-gradient(to bottom, var(--navy) 0 10px, transparent 10px 22px) center / 2px 100% no-repeat,
-      var(--linen);
+      repeating-linear-gradient(to bottom, var(--gold) 0 10px, transparent 10px 22px) center / 2px 100% no-repeat,
+      var(--slate);
+    box-shadow: 0 0 0 3px #CECECE;
   }
   .road::before {               /* node where each card meets the road */
     content: "";
     position: absolute;
     left: -2.1rem; top: 1.75rem;
     width: 1.25rem; height: 1.25rem;
-    border: 3px solid var(--linen);
+    border: 3px solid #CECECE;
     border-radius: 50%;
     background: var(--gold);
   }
@@ -2036,20 +2038,51 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 .join__callout a { color: #fff; font-weight: 600; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 
 /* ---------- Form card ---------- */
+/* Card background is a storefront photo under a deep navy overlay;
+   fields stay white so they read as clear, tappable boxes. */
 .join__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
   border-radius: 1.5rem;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--navy);
+  color: var(--ink-on-dark);
   box-shadow: 0 34px 60px -30px rgba(20, 5, 10, .7);
 }
-.join__form { display: grid; gap: 1.25rem; }
+.join__card-bg { position: absolute; inset: 0; z-index: -2; }
+.join__card-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+.join__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(160deg, rgba(5, 46, 102, .78) 0%, rgba(5, 30, 66, .9) 55%, rgba(5, 30, 66, .95) 100%);
+}
+.join__card .join__form-title { color: #fff; }
+.join__card .join__form-note { color: var(--ink-on-dark-muted); }
+.join__card .field label,
+.join__card .choices legend { color: #fff; }
+.join__card .req { color: var(--gold); }
+.join__card .choices__hint { color: var(--ink-on-dark-muted); }
+.join__card .field input { border-color: transparent; }
+.join__card .choice:has(input:checked) {     /* ticked option on the dark card: white text, gold edge */
+  background: rgba(232, 161, 19, .18);
+  border-color: var(--gold);
+  color: #fff;
+}
+.join__card .join__submit { background: var(--gold); color: var(--navy); }
+.join__card .join__submit .btn--arrow__icon { background: var(--navy); color: var(--gold); }
+.join__card .join__submit:hover { background: #F2B53A; }
+.join__card .signup__status.is-success { color: #9FE0CF; }
+.join__card .signup__status.is-error { color: #FFC2C9; }
+.join__form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 .join__form-title { font-family: var(--font-head); font-weight: 700; font-size: var(--fs-h3); color: var(--navy); }
 .join__form-note { margin-top: -.75rem; font-size: .875rem; color: var(--ink-muted); }
 
 .field-row { display: grid; gap: 1.25rem; }
-@media (min-width: 30em) { .field-row { grid-template-columns: 1fr 1fr; } }
-.field { display: grid; gap: .4rem; }
+@media (min-width: 30em) { .field-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.field { display: grid; gap: .4rem; min-width: 0; }   /* lets fields shrink inside the card */
 .field label,
 .choices legend {
   font-family: var(--font-head);
@@ -2059,6 +2092,8 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 }
 .req { color: var(--wine); }
 .field input {
+  width: 100%;
+  min-width: 0;
   min-height: 3.125rem;
   padding: .75rem 1rem;
   border: 2px solid rgba(5, 46, 102, .18);
@@ -2081,15 +2116,16 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 /* Interest options: pill checkboxes */
 .choices {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: .6rem;
+  min-width: 0;                  /* fieldsets default to min-content width — this stops the overflow */
   margin: 0;
   padding: 0;
   border: 0;
 }
-@media (min-width: 30em) { .choices { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 30em) { .choices { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 .choices legend { margin-bottom: .6rem; padding: 0; }
-.choices__hint { font-weight: 500; color: var(--ink-muted); }
+.choices__hint { font-family: var(--font-body); font-weight: 400; color: var(--ink-muted); }   /* Inter Regular (guide: body text) */
 .choice {
   position: relative;
   display: flex;
