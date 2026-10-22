@@ -54,6 +54,11 @@
     else openMenu();
   });
 
+  // Tap on the dimmed page (outside the bar + panel) closes the menu
+  document.addEventListener("click", function (e) {
+    if (isOpen() && !e.target.closest(".nav")) closeMenu(false);
+  });
+
   // Close after choosing a link (same-page anchors)
   menu.addEventListener("click", function (e) {
     if (e.target.closest("a") && isOpen()) closeMenu(false);
