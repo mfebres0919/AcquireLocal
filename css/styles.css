@@ -2198,6 +2198,7 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   color: var(--ink-on-dark-muted);
 }
 .footer__bottom ul { display: flex; gap: 1.5rem; }
+.footer__credit a:hover strong { color: var(--gold); }
 .footer__credit strong {
   font-weight: 700;
   color: #fff;
@@ -2279,3 +2280,9 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s;
 }
 .toast::before { content: "✓ "; color: var(--gold); }
+
+/* Hero eyebrow on small phones: shorter rules so the label stays on one line */
+@media (max-width: 29.99em) {
+  .hero .eyebrow { gap: .5rem; letter-spacing: .1em; white-space: nowrap; }
+  .hero .eyebrow__rule { width: 1.25rem; }
+}
