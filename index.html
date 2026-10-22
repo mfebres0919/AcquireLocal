@@ -49,11 +49,18 @@
           <ul class="nav__list">
             <li><a class="nav__link" href="#about"><span class="nav__num"></span><span class="nav__label">About</span><span class="nav__arrow"></span></a></li>
             <li><a class="nav__link" href="#event"><span class="nav__num"></span><span class="nav__label">The Event</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="#why"><span class="nav__num"></span><span class="nav__label">Why It Matters</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="#two-roads"><span class="nav__num"></span><span class="nav__label">Two Roads</span><span class="nav__arrow"></span></a></li>
+            <li class="nav__item--has-sub">
+              <div class="nav__parent">
+                <a class="nav__link" href="#why"><span class="nav__num"></span><span class="nav__label">Why It Matters</span><span class="nav__arrow"></span></a>
+                <button class="nav__subtoggle" type="button" aria-expanded="false" aria-controls="nav-sub-why"><span class="visually-hidden">Why It Matters submenu</span></button>
+              </div>
+              <ul class="nav__sub" id="nav-sub-why">
+                <li><a class="nav__link nav__link--sub" href="#ownership"><span class="nav__label">Ownership</span><span class="nav__arrow"></span></a></li>
+              </ul>
+            </li>
             <li><a class="nav__link" href="#partners"><span class="nav__num"></span><span class="nav__label">Partners</span><span class="nav__arrow"></span></a></li>
             <li><a class="nav__link" href="#faq"><span class="nav__num"></span><span class="nav__label">FAQ</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="#join"><span class="nav__num"></span><span class="nav__label">Join</span><span class="nav__arrow"></span></a></li>
+            <li><a class="nav__link" href="#join"><span class="nav__num"></span><span class="nav__label">Join Us</span><span class="nav__arrow"></span></a></li>
           </ul>
           <div class="nav__aside">
           <a class="btn btn--gold nav__cta" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008?aff=nav" target="_blank" rel="noopener">
@@ -394,8 +401,8 @@
       </div>
     </section>
 
-    <!-- ============ TWO ROADS (street photo + navy overlay) ============ -->
-    <section class="roads" id="two-roads" aria-labelledby="roads-title">
+    <!-- ============ OWNERSHIP — two roads (street photo + navy overlay) ============ -->
+    <section class="roads" id="ownership" aria-labelledby="roads-title">
       <picture class="roads__bg">
         <source type="image/webp" srcset="images/roads/roads-street-960.webp 960w, images/roads/roads-street-1920.webp 1920w" sizes="100vw">
         <img src="images/roads/roads-street-1920.jpg" srcset="images/roads/roads-street-960.jpg 960w, images/roads/roads-street-1920.jpg 1920w" sizes="100vw" alt="" loading="lazy">
@@ -406,7 +413,7 @@
           <div class="roads__heading">
             <p class="eyebrow eyebrow--light">
               <span class="eyebrow__rule"></span>
-              Two Roads
+              Ownership
               <span class="eyebrow__rule eyebrow__rule--end"></span>
             </p>
             <h2 class="roads__title t-h1" id="roads-title" data-marks>Two roads to <span class="mark-keep"><span class="mark">ownership<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" role="presentation" focusable="false"><path pathLength="1" d="M3 6.5C70 3.5 130 9 197 5"/></svg></span></span></h2>
@@ -591,7 +598,6 @@
             <img src="images/faq/faq-shopper-900.jpg" srcset="images/faq/faq-shopper-500.jpg 500w, images/faq/faq-shopper-900.jpg 900w" sizes="(min-width: 64em) 22rem, 60vw" alt="A customer leaving a local shop with shopping bags" loading="lazy">
           </picture>
           </div>
-          <p class="faq__more">Still have questions? <a href="#join-form">Join the community</a> and our team will be in touch.</p>
         </div>
 
         <div class="faq__list">
@@ -661,6 +667,9 @@
           </details>
         </div>
 
+      </div>
+      <div class="container">
+        <p class="faq__more">Still have questions? <a href="#join-form">Join the community</a> and our team will be in touch.</p>
       </div>
     </section>
 
@@ -778,10 +787,10 @@
           <li><a href="#about">About</a></li>
           <li><a href="#event">The Event</a></li>
           <li><a href="#why">Why It Matters</a></li>
-          <li><a href="#two-roads">Two Roads</a></li>
+          <li><a href="#ownership">Ownership</a></li>
           <li><a href="#partners">Partners</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#join">Join</a></li>
+          <li><a href="#join">Join Us</a></li>
         </ul>
       </div>
 
@@ -833,6 +842,7 @@
   <script src="javascript/to-top.js" defer></script>
   <script src="javascript/signup.js" defer></script>
   <script src="javascript/interest-prefill.js" defer></script>
+  <script src="javascript/faq.js" defer></script>
   <script src="javascript/eventbrite-checkout.js" defer></script>
 </body>
 </html>

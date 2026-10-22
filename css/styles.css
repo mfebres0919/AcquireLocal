@@ -407,7 +407,7 @@ body.menu-locked { overflow: hidden; }
 
 /* ---------- Slides ---------- */
 .hero__slides,
-.hero__overlay { position: absolute; inset: 0; z-index: -1; }
+.hero__overlay { position: absolute; inset: var(--header-h) 0 0; z-index: -1; }   /* photos start below the solid header, so heads aren't hidden behind it */
 
 .hero__slide {
   position: absolute;
@@ -445,10 +445,10 @@ body.menu-locked { overflow: hidden; }
   to   { transform: scale(1); }
 }
 /* Per-photo focal points (keep faces in frame on narrow screens) */
-.hero__slide:nth-child(1) img { object-position: 45% 25%; }   /* couple at the produce stand */
-.hero__slide:nth-child(2) img { object-position: 60% 30%; }   /* owner with tablet, right of centre */
-.hero__slide:nth-child(3) img { object-position: 57% 25%; }   /* young couple outside their shop */
-.hero__slide:nth-child(4) img { object-position: 65% 30%; }   /* owner at the counter, right side */
+.hero__slide:nth-child(1) img { object-position: 45% 6%; }   /* couple at the produce stand */
+.hero__slide:nth-child(2) img { object-position: 60% 12%; }   /* owner with tablet, right of centre */
+.hero__slide:nth-child(3) img { object-position: 57% 0%; }   /* young couple outside their shop */
+.hero__slide:nth-child(4) img { object-position: 65% 10%; }   /* owner at the counter, right side */
 
 /* Per-photo tone: the brightest photos are dimmed a little so the wash can stay
    light. Values were checked so all hero text keeps 4.5:1 contrast on every photo. */
@@ -2482,7 +2482,7 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 
 /* Generated (screen-reader-silent) nav numbers + arrows, impact numbers */
 .nav__list { counter-reset: navnum; }
-.nav__list li { counter-increment: navnum; }
+.nav__list > li { counter-increment: navnum; }
 .nav__num::before {
   content: counter(navnum, decimal-leading-zero);
   content: counter(navnum, decimal-leading-zero) / "";
@@ -2526,7 +2526,14 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 .faq__aside { display: grid; gap: 1.25rem; align-content: start; }
 .faq__title { color: #fff; }
 .faq__intro { font-size: var(--fs-body-lg); line-height: 1.55; }
-.faq__more { font-size: var(--fs-body); }
+.faq__more {
+  max-width: 32rem;
+  margin: clamp(2.5rem, 2rem + 2vw, 3.5rem) auto 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(243, 236, 229, .18);
+  font-size: var(--fs-body);
+  text-align: center;
+}
 .faq__more a,
 .faq__a a {
   font-weight: 600;
@@ -2628,16 +2635,11 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 .faq__item[open] .faq__a a:hover { color: var(--wine); }
 .faq__a strong { font-weight: 600; color: var(--navy); }
 
-/* Smooth open/close where supported (Chrome/Edge); others open instantly */
-@supports (interpolate-size: allow-keywords) {
-  .faq__item { interpolate-size: allow-keywords; }
-  .faq__item::details-content {
-    block-size: 0;
-    overflow: hidden;
-    transition: block-size .35s var(--ease), content-visibility .35s allow-discrete;
-  }
-  .faq__item[open]::details-content { block-size: auto; }
-}
+/* Open/close is animated in javascript/faq.js (all browsers).
+   overflow:hidden lets the item's height animate without content spilling. */
+.faq__item { overflow: hidden; }
+.faq__a { transition: opacity .3s var(--ease); }
+.faq__item.is-closing .faq__a { opacity: 0; }
 
 /* Final CTA now follows the navy FAQ: give it its own top space + navy wave */
 .final-cta {
@@ -2655,3 +2657,102 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 /* Answers inside closed questions sit on navy (never visible, but checkers read them) */
 .faq__item:not([open]) .faq__a,
 .faq__item:not([open]) .faq__a strong { color: var(--ink-on-dark); }
+
+/* Header height (event bar + nav bar) — hero photos start below it */
+:root { --header-h: 7.0625rem; }
+@media (min-width: 75em) { :root { --header-h: 8.0625rem; } }
+
+/* ==========================================================================
+   Nav submenu — "Ownership" under "Why It Matters"
+   Phone/tablet panel: always shown, indented under its parent.
+   Desktop: dropdown on hover, keyboard focus, or the chevron button.
+   ========================================================================== */
+.nav__parent { display: flex; align-items: center; }
+.nav__parent .nav__link { flex: 1; }
+.nav__subtoggle { display: none; }
+
+.nav__sub { margin: 0; padding: 0 0 .5rem; list-style: none; }
+.nav__link--sub {
+  padding: .55rem 0 .55rem 2.5rem;
+  font-size: 1.0625rem;
+  color: var(--ink-on-dark-muted);
+}
+.nav__link--sub .nav__label::before {
+  content: "↳ ";
+  content: "↳ " / "";
+  color: var(--gold);
+}
+/* Parent stays highlighted while you're in its sub-section */
+.nav__item--has-sub:has(.nav__link--sub[aria-current]) > .nav__parent .nav__label { color: var(--gold); }
+
+@media (min-width: 75em) {
+  .nav__item--has-sub { position: relative; }
+  .nav__parent .nav__link { padding-right: .25rem; }
+  .nav__subtoggle {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: .375rem;
+    background: transparent;
+    color: inherit;
+  }
+  .nav__subtoggle::before {               /* chevron */
+    content: "";
+    width: .45rem;
+    height: .45rem;
+    margin-top: -.2rem;
+    border: solid currentColor;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    transition: transform .2s var(--ease);
+  }
+  .nav__subtoggle[aria-expanded="true"]::before { transform: rotate(-135deg); margin-top: .2rem; }
+  .nav__parent { color: var(--linen); }
+  .site-header.is-scrolled .nav__parent { color: var(--navy); }
+
+  .nav__sub {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 13rem;
+    padding: .5rem;
+    border-radius: .875rem;
+    background: var(--cream);
+    box-shadow: 0 18px 40px -16px rgba(5, 46, 102, .45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s linear .2s;
+  }
+  .nav__item--has-sub:hover .nav__sub,
+  .nav__item--has-sub:focus-within .nav__sub,
+  .nav__item--has-sub.is-open .nav__sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s;
+  }
+  .nav__sub::before {                     /* hover bridge between link and dropdown */
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -.75rem;
+    height: .75rem;
+  }
+  .nav__link--sub,
+  .site-header.is-scrolled .nav__link--sub {
+    display: block;
+    padding: .65rem .9rem;
+    border-radius: .5rem;
+    font-size: .9375rem;
+    color: var(--navy);
+  }
+  .nav__link--sub .nav__label::before { content: none; }
+  .nav__link--sub::after { display: none; }
+  .nav__link--sub:hover,
+  .nav__link--sub[aria-current] { background: rgba(232, 161, 19, .18); color: var(--wine) !important; }
+  .nav__item--has-sub:has(.nav__link--sub[aria-current]) > .nav__parent .nav__link::after { transform: scaleX(1); }
+  .nav__item--has-sub:has(.nav__link--sub[aria-current]) > .nav__parent .nav__label { color: inherit; }
+}

@@ -46,11 +46,18 @@
           <ul class="nav__list">
             <li><a class="nav__link" href="../index.html#about"><span class="nav__num"></span><span class="nav__label">About</span><span class="nav__arrow"></span></a></li>
             <li><a class="nav__link" href="../index.html#event"><span class="nav__num"></span><span class="nav__label">The Event</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#why"><span class="nav__num"></span><span class="nav__label">Why It Matters</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#two-roads"><span class="nav__num"></span><span class="nav__label">Two Roads</span><span class="nav__arrow"></span></a></li>
+            <li class="nav__item--has-sub">
+              <div class="nav__parent">
+                <a class="nav__link" href="../index.html#why"><span class="nav__num"></span><span class="nav__label">Why It Matters</span><span class="nav__arrow"></span></a>
+                <button class="nav__subtoggle" type="button" aria-expanded="false" aria-controls="nav-sub-why"><span class="visually-hidden">Why It Matters submenu</span></button>
+              </div>
+              <ul class="nav__sub" id="nav-sub-why">
+                <li><a class="nav__link nav__link--sub" href="../index.html#ownership"><span class="nav__label">Ownership</span><span class="nav__arrow"></span></a></li>
+              </ul>
+            </li>
             <li><a class="nav__link" href="../index.html#partners"><span class="nav__num"></span><span class="nav__label">Partners</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="#faq"><span class="nav__num"></span><span class="nav__label">FAQ</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#join"><span class="nav__num"></span><span class="nav__label">Join</span><span class="nav__arrow"></span></a></li>
+            <li><a class="nav__link" href="../index.html#faq"><span class="nav__num"></span><span class="nav__label">FAQ</span><span class="nav__arrow"></span></a></li>
+            <li><a class="nav__link" href="../index.html#join"><span class="nav__num"></span><span class="nav__label">Join Us</span><span class="nav__arrow"></span></a></li>
           </ul>
           <div class="nav__aside">
           <a class="btn btn--gold nav__cta" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008?aff=nav" target="_blank" rel="noopener">
@@ -218,10 +225,10 @@
           <li><a href="../index.html#about">About</a></li>
           <li><a href="../index.html#event">The Event</a></li>
           <li><a href="../index.html#why">Why It Matters</a></li>
-          <li><a href="../index.html#two-roads">Two Roads</a></li>
+          <li><a href="../index.html#ownership">Ownership</a></li>
           <li><a href="../index.html#partners">Partners</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="../index.html#join">Join</a></li>
+          <li><a href="../index.html#faq">FAQ</a></li>
+          <li><a href="../index.html#join">Join Us</a></li>
         </ul>
       </div>
 
