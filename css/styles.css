@@ -759,12 +759,19 @@ body.menu-locked { overflow: hidden; }
 }
 
 /* ---------- Statement (on wine) ---------- */
+/* Real wine background on the statement itself (the band's wine is a ::before layer,
+   which contrast checkers like WAVE can't see). Same pattern + colour, so no visual change. */
+.about__statement {
+  margin-top: clamp(3rem, 2.5rem + 3vw, 4.5rem);
+  background: url("../images/brand/pattern-diamond.svg") center top / 56px 56px, var(--wine);
+}
+.about__statement .about__divider { margin-top: 0; padding-top: 0; }
 .about__divider {
   display: block;
   position: relative;
   width: 7rem;
   height: 2px;
-  margin: clamp(3rem, 2.5rem + 3vw, 4.5rem) auto 1.75rem;
+  margin: 0 auto 1.75rem;
   background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
 }
 .about__divider::after {
