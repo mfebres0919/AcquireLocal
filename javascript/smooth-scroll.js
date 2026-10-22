@@ -32,7 +32,12 @@
     var link = e.target.closest('a[href^="#"]');
     if (!link || link.hasAttribute("data-to-top")) return;
     var id = link.getAttribute("href").slice(1);
-    var target = id && document.getElementById(id);
+    if (!id) {                               // href="#" (logo) → back to the top
+      e.preventDefault();
+      lenis.scrollTo(0);
+      return;
+    }
+    var target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
 
