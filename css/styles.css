@@ -14,7 +14,8 @@
 
 /* ---------- Event bar ---------- */
 .topbar {
-  background: var(--navy);
+  background: #021A3D;                                   /* deeper navy than the nav bar below */
+  border-bottom: 1px solid rgba(232, 161, 19, .35);      /* thin gold divider between the two bars */
   color: var(--ink-on-dark);
   font-size: .8125rem;
   overflow: hidden;
