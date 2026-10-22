@@ -114,7 +114,16 @@
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars::before { transform: translateY(6px) rotate(45deg); }
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars::after  { transform: translateY(-6px) rotate(-45deg); }
 
-.site-header.is-scrolled .nav__toggle { color: var(--navy); border-color: rgba(5, 46, 102, .35); }
+/* Menu button: solid wine circle with white lines, in every header state */
+.nav__toggle,
+.site-header.is-scrolled .nav__toggle,
+.site-header.menu-open .nav__toggle {
+  background: var(--wine);
+  border-color: var(--wine);
+  color: #fff;
+  box-shadow: 0 6px 16px -8px rgba(40, 10, 20, .6);
+}
+.nav__toggle:hover { background: #4A1827; border-color: #4A1827; }
 
 /* ---------- Mobile / tablet panel ----------
    A dropdown under the header bar, only as tall as its content (scrolls if the
@@ -287,7 +296,6 @@
 .site-header.menu-open .nav { background: var(--navy); box-shadow: none; }
 .site-header.menu-open .nav__logo-img--light { display: block; }
 .site-header.menu-open .nav__logo-img--dark { display: none; }
-.site-header.menu-open .nav__toggle { color: var(--linen); border-color: rgba(243, 236, 229, .6); }
 body.menu-locked { overflow: hidden; }
 
 /* Tablet: give the panel a comfortable reading width */
