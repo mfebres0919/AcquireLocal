@@ -20,7 +20,8 @@
   btn.addEventListener("click", function (e) {
     e.preventDefault();
     var smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+    if (window.lenis) window.lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
     if (main) main.focus({ preventScroll: true });   // keyboard users land back at the top
   });
 })();

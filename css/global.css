@@ -106,6 +106,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;   /* keeps anchored headings clear of the sticky nav */
 }
+/* Lenis does its own smoothing; CSS smooth scroll on top would fight it */
+html.lenis.lenis-smooth { scroll-behavior: auto; }
 
 body {
   margin: 0;

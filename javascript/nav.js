@@ -31,6 +31,7 @@
     menu.classList.add("is-open");
     header.classList.add("menu-open");
     document.body.classList.add("menu-locked");
+    if (window.lenis) window.lenis.stop();       // freeze smooth scroll behind the panel
     var first = menu.querySelector("a[href]");
     if (first) first.focus();
   }
@@ -40,6 +41,7 @@
     menu.classList.remove("is-open");
     header.classList.remove("menu-open");
     document.body.classList.remove("menu-locked");
+    if (window.lenis) window.lenis.start();
     if (returnFocus) toggle.focus();
   }
 

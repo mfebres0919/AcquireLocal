@@ -266,9 +266,29 @@
 body.menu-locked { overflow: hidden; }
 
 /* Tablet: give the panel a comfortable reading width */
+/* Button + contact card wrapper: only a real box on tablets (below), invisible elsewhere */
+.nav__aside { display: contents; }
+
+/* Tablet / small laptop: use the full width — links left, button + contact card right */
 @media (min-width: 48em) and (max-width: 74.99em) {
-  .nav__menu > * { width: 100%; max-width: 32rem; }
-  .nav__cta { max-width: 32rem; }
+  .nav__menu {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: 1fr auto 1fr auto;      /* empty rows above/below centre the content vertically */
+    grid-template-areas:
+      ".    .      "
+      "list cta    "
+      ".    .      "
+      "art  art    ";
+    column-gap: clamp(2rem, 1rem + 3vw, 4rem);
+    row-gap: 1.5rem;
+    align-content: stretch;
+    padding-top: 7rem;
+  }
+  .nav__list    { grid-area: list; align-self: start; }
+  .nav__aside { grid-area: cta; display: grid; gap: 1.5rem; align-content: start; }
+  .nav__link { font-size: clamp(1.5rem, 1rem + 1.4vw, 1.875rem); padding-block: 1.15rem; }
+  .nav__menu::after { grid-area: art; }
 }
 
 /* ---------- Desktop nav (75em / 1200px: below this the six links + button don't fit on one line) ---------- */
@@ -1542,6 +1562,12 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 }
 .road__badge--soft { background: var(--glacier); }
 
+.road__art {
+  width: min(13rem, 70%);
+  height: auto;
+  margin: auto 0 0 auto;          /* sits at the bottom-right of the card */
+  padding-top: 1rem;
+}
 .road__title { font-weight: 700; }
 .road--primary .road__title { color: #fff; }
 .road--secondary .road__title { color: var(--navy); }
@@ -1612,3 +1638,28 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   text-underline-offset: 4px;
 }
 .roads__note a:hover { color: var(--wine); text-decoration-color: var(--wine); }
+
+/* ==========================================================================
+   Active nav link (set by active-nav.js as the visitor scrolls)
+   ========================================================================== */
+.nav__link[aria-current] .nav__label,
+.nav__link[aria-current] .nav__arrow { color: var(--gold); }
+.nav__link[aria-current] .nav__arrow { transform: translateX(4px); }
+/* Phone panel: gold bar on the active row */
+.nav__list li { position: relative; }
+.nav__link[aria-current]::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--gutter) * -1);
+  top: 25%; bottom: 25%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--gold);
+}
+
+@media (min-width: 75em) {
+  .nav__link[aria-current]::before { display: none; }
+  .nav__link[aria-current]::after { transform: scaleX(1); }
+  .nav__link[aria-current] .nav__label { color: inherit; }
+  .site-header.is-scrolled .nav__link[aria-current] { color: var(--wine); }
+}
