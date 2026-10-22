@@ -12,3 +12,6 @@ fonts/Playfair_Display/
 
 # OS clutter
 .DS_Store
+
+# Source screenshot for the social preview (the site uses images/og-image.jpg)
+images/preview-image.png
