@@ -27,7 +27,7 @@
           <span class="topbar__full">Thursday, Nov 12 · 5–8 PM · St. Francis College, Brooklyn</span>
           <span class="topbar__short">Nov 12 · Brooklyn</span>
         </p>
-        <a class="topbar__link" href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
+        <a class="topbar__link" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
           Tickets $25 <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in a new tab)</span>
         </a>
       </div>
@@ -55,7 +55,7 @@
             <li><a class="nav__link" href="#join"><span class="nav__num" aria-hidden="true">06</span><span class="nav__label">Join</span><span class="nav__arrow" aria-hidden="true">→</span></a></li>
           </ul>
           <div class="nav__aside">
-          <a class="btn btn--gold nav__cta" href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
+          <a class="btn btn--gold nav__cta" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
             Reserve Your Seat <span class="btn__arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span>
           </a>
 
@@ -122,15 +122,17 @@
 
       <div class="container hero__inner">
         <div class="hero__content">
+          <!-- Docx: "AcquireLocal (use wordmark with tagline)". White knockout per brand guide p.7 -->
+          <img class="hero__lockup" src="images/brand/logo-tagline-white.svg" alt="AcquireLocal: Acquire a Business. Preserve a Legacy. Strengthen a Community." width="686" height="168">
           <p class="eyebrow eyebrow--light">
             <span class="eyebrow__rule" aria-hidden="true"></span>
             AcquireLocal Brooklyn 2026
+            <span class="eyebrow__rule eyebrow__rule--end" aria-hidden="true"></span>
           </p>
           <h1 class="hero__title" id="hero-title" data-marks>Where Business Ownership Meets <span class="mark">Business<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 8.5C48 4 104 3.2 197 6.5"/></svg></span> <span class="mark mark--2">Succession<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 6.5C70 3.5 130 9 197 5"/></svg></span></h1>
-          <p class="hero__lede">Acquire a Business. Preserve a Legacy. Strengthen a Community.</p>
 
           <div class="hero__actions">
-            <a class="btn btn--gold btn--lg" href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
+            <a class="btn btn--gold btn--lg" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
               Reserve Your Seat <span class="btn__arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span>
             </a>
             <a class="btn btn--outline-light btn--lg" href="#join">Join the Community</a>
@@ -143,18 +145,6 @@
           </ul>
         </div>
 
-        <div class="hero__badge" aria-hidden="true">
-          <svg class="hero__badge-ring" viewBox="0 0 200 200">
-            <defs>
-              <path id="badge-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
-            </defs>
-            <circle cx="100" cy="100" r="98" class="hero__badge-bg"/>
-            <text class="hero__badge-text">
-              <textPath href="#badge-circle" textLength="488">BROOKLYN · NOV 12 · 2026 · BROOKLYN · NOV 12 · 2026 ·</textPath>
-            </text>
-          </svg>
-          <img class="hero__badge-icon" src="images/brand/icon-cafe.svg" alt="" width="170" height="165">
-        </div>
       </div>
 
       <div class="hero__controls container">
@@ -185,7 +175,7 @@
           <h2 class="about__title t-h1" id="about-title" data-marks>One generation is asking <span class="mark-keep"><span class="mark">what’s next<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 8.5C48 4 104 3.2 197 6.5"/></svg></span>.</span> Another is asking who will <span class="mark-keep"><span class="mark mark--2">carry it forward<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 6.5C70 3.5 130 9 197 5"/></svg></span>.</span></h2>
           <div class="about__copy">
             <p class="about__text">Across the country, <strong>experienced professionals</strong> are considering <strong>business ownership</strong> as a way to put their skills and experience to work. At the same time, <strong>longtime business owners</strong> are thinking about <strong>succession</strong> and what will happen to the businesses they have spent years building.</p>
-            <a class="btn btn--arrow" href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
+            <a class="btn btn--arrow" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
               <span class="btn--arrow__label">Reserve Your Seat</span>
               <span class="btn--arrow__icon" aria-hidden="true">↗</span>
               <span class="visually-hidden"> (opens in a new tab)</span>
@@ -273,7 +263,7 @@
           <div class="ticket__main">
             <h3 class="ticket__title t-h3" id="ticket-title">Be Part of the First AcquireLocal Brooklyn Event</h3>
             <p class="ticket__text">Join aspiring entrepreneurs, legacy business owners, lenders, and advisors for an evening of practical conversations and new connections.</p>
-            <a class="btn btn--arrow ticket__cta" href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
+            <a class="btn btn--arrow ticket__cta" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">
               <span class="btn--arrow__label">Register for the Event</span>
               <span class="btn--arrow__icon" aria-hidden="true">↗</span>
               <span class="visually-hidden"> (opens in a new tab)</span>
@@ -574,6 +564,21 @@
       </div>
     </section>
 
+    <!-- ============ FINAL CTA — full lockup ============ -->
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div class="container">
+        <div class="final-cta__card">
+          <img class="final-cta__lockup" src="images/brand/logo-full.svg" alt="AcquireLocal: Acquire a Business. Preserve a Legacy. Strengthen a Community." width="691" height="289" loading="lazy">
+          <h2 class="final-cta__title t-h2" id="final-cta-title">We look forward to seeing you in Brooklyn!</h2>
+          <p class="final-cta__meta">Thursday, November 12, 2026 · 5:00–8:00 PM · St. Francis College · Tickets $25</p>
+          <div class="final-cta__actions">
+            <a class="btn btn--gold btn--lg" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">Reserve Your Seat <span class="btn__arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn btn--outline-navy btn--lg" href="#join">Join the Community</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ JOIN THE COMMUNITY ============ -->
     <section class="join" id="join" aria-labelledby="join-title">
       <div class="container join__grid">
@@ -589,7 +594,7 @@
 
           <div class="join__callout">
             <p class="join__callout-title">Can’t make it November 12?</p>
-            <p>Sign up for updates on upcoming events and ways to get involved. Coming? <a href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">Reserve your seat<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
+            <p>Sign up for updates on upcoming events and ways to get involved. Coming? <a data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">Reserve your seat<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
           </div>
         </div>
 
@@ -663,8 +668,8 @@
   <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__brand">
-        <img src="images/brand/wordmark-light.svg" alt="AcquireLocal" width="463" height="102" loading="lazy">
-        <p>Acquire a Business. Preserve a Legacy. Strengthen a Community.</p>
+        <img class="footer__logo" src="images/brand/logo-tagline-white.svg" alt="AcquireLocal: Acquire a Business. Preserve a Legacy. Strengthen a Community." width="686" height="168" loading="lazy">
+        <p>Connecting aspiring entrepreneurs and legacy business owners with education, resources, and specialists in acquisition and succession.</p>
         <p class="footer__founders">Founded by Dana K. Michel and Lori Ann Pope</p>
       </div>
 
@@ -685,7 +690,7 @@
         <ul>
           <li>Thursday, November 12 · 5–8 PM</li>
           <li>St. Francis College<br>179 Livingston Street, Brooklyn</li>
-          <li><a href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">Tickets $25 on Eventbrite<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008" target="_blank" rel="noopener">Tickets $25 on Eventbrite<span class="visually-hidden"> (opens in a new tab)</span></a></li>
         </ul>
       </div>
 
@@ -701,12 +706,17 @@
 
     <div class="container footer__bottom">
       <p>© 2026 AcquireLocal. All rights reserved.</p>
+      <!-- TODO: link "MigsFlow" to the MigsFlow website once the URL is confirmed -->
+      <p class="footer__credit">Website developed by <strong>MigsFlow</strong></p>
       <ul>
         <li><a href="html/privacy.html">Privacy Policy</a></li>
         <li><a href="html/accessibility.html">Accessibility</a></li>
       </ul>
     </div>
   </footer>
+
+  <!-- Announces the Eventbrite order confirmation (filled by eventbrite-checkout.js) -->
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
 
   <a class="to-top" href="#main" aria-label="Back to top" data-to-top>
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -724,5 +734,6 @@
   <script src="javascript/to-top.js" defer></script>
   <script src="javascript/signup.js" defer></script>
   <script src="javascript/interest-prefill.js" defer></script>
+  <script src="javascript/eventbrite-checkout.js" defer></script>
 </body>
 </html>

@@ -444,9 +444,15 @@ body.menu-locked { overflow: hidden; }
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
+/* Centred hero: logo, eyebrow, headline, buttons and details all on the centre line */
 .hero__content {
-  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 52rem;
+  text-align: center;
   text-shadow: 0 1px 2px rgba(3, 20, 48, .35), 0 2px 18px rgba(3, 20, 48, .35);
 }
 .hero__content .btn { text-shadow: none; }
@@ -462,19 +468,17 @@ body.menu-locked { overflow: hidden; }
 }
 .hero__title { --mark-delay: .7s; }   /* underlines start once the page has settled */
 
-.hero__lede {
-  margin-top: 1.25rem;
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 400;
-  font-size: var(--fs-lead);
-  line-height: 1.45;
-  color: var(--ink-on-dark);
+.hero__lockup {
+  display: block;
+  width: clamp(17rem, 12rem + 16vw, 27rem);
+  height: auto;
+  margin: 0 auto clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: .75rem;
   margin-top: 2rem;
 }
@@ -482,6 +486,7 @@ body.menu-locked { overflow: hidden; }
 .hero__details {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: .35rem 1.25rem;
   margin-top: 2rem;
   font-size: var(--fs-small);
@@ -500,8 +505,7 @@ body.menu-locked { overflow: hidden; }
   transform: rotate(45deg);
 }
 
-/* ---------- Badge (static — no rotation, by design for WCAG 2.2.2) ---------- */
-.hero__badge { display: none; }
+
 
 /* ---------- Slide controls ---------- */
 .hero__controls {
@@ -509,6 +513,7 @@ body.menu-locked { overflow: hidden; }
   left: 0; right: 0;
   bottom: calc(var(--storefront-h) + 1rem);
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
 }
@@ -614,7 +619,7 @@ body.menu-locked { overflow: hidden; }
   }
 }
 
-/* ---------- Desktop: wash from the left, badge on the right ---------- */
+/* ---------- Desktop: centred wash behind the centred text ---------- */
 @media (min-width: 64em) {
   .hero {
     --storefront-h: 7rem;
@@ -623,43 +628,11 @@ body.menu-locked { overflow: hidden; }
   }
   .hero__overlay {
     background:
-      linear-gradient(90deg, rgba(5, 46, 102, .84) 0%, rgba(5, 46, 102, .72) 42%, rgba(5, 46, 102, .25) 68%, rgba(5, 46, 102, 0) 100%),
+      radial-gradient(ellipse 55% 60% at 50% 52%, rgba(5, 46, 102, .76) 0%, rgba(5, 46, 102, .66) 55%, rgba(5, 46, 102, .5) 100%),
       linear-gradient(180deg, rgba(5, 30, 66, .3) 0%, transparent 25%, transparent 75%, rgba(5, 30, 66, .35) 100%);
   }
 
-  .hero__badge {
-    position: absolute;
-    right: var(--gutter);
-    bottom: 0;
-    display: grid;
-    place-items: center;
-    width: 10.5rem;
-    aspect-ratio: 1;
-  }
-  .hero__badge-ring {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .hero__badge-bg {
-    fill: rgba(5, 46, 102, .78);
-    stroke: var(--gold);
-    stroke-width: 2;
-  }
-  .hero__badge-text {
-    fill: var(--linen);
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: .12em;
-  }
-  .hero__badge-icon {
-    width: 5.5rem;
-    padding: .3rem;
-    background: var(--cream);
-    border-radius: 50%;
-  }
+
 }
 
 /* Reduce motion: no zoom, no crossfade (hero.js also skips rotation) */
@@ -2179,24 +2152,24 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
    ========================================================================== */
 .footer {
   position: relative;
-  padding: calc(3.5rem + 3rem) 0 1.5rem;
+  padding: calc(clamp(2.5rem, 1.5rem + 4vw, 5.5rem) + 3rem) 0 1.5rem;
   background: var(--navy);
   color: var(--ink-on-dark);
 }
-.footer::before {          /* storefront row along the top edge */
+.footer::before {          /* wine wave flowing down from the Join section */
   content: "";
   position: absolute;
-  left: 0; right: 0; top: 1.25rem;
-  height: 3rem;
-  background: url("../images/brand/storefronts.svg") repeat-x center bottom / auto 100%;
-  opacity: .9;
+  left: 0; right: 0; top: -1px;
+  height: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  background: url("../images/brand/divider-wave.svg") no-repeat center top / 100% 100%;
+  pointer-events: none;
 }
 .footer__grid { display: grid; gap: 2.5rem; }
 @media (min-width: 48em) { .footer__grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 64em) { .footer__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1fr; gap: 3rem; } }
 
 .footer__brand { display: grid; gap: .9rem; align-content: start; }
-.footer__brand img { width: 12rem; }
+.footer__logo { width: min(19rem, 100%); height: auto; margin-bottom: .5rem; }
 .footer__brand p { max-width: 22rem; color: var(--ink-on-dark); }
 .footer__founders { font-size: .9375rem; color: var(--ink-on-dark-muted) !important; }
 
@@ -2225,3 +2198,84 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   color: var(--ink-on-dark-muted);
 }
 .footer__bottom ul { display: flex; gap: 1.5rem; }
+.footer__credit strong {
+  font-weight: 700;
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+@media (min-width: 64em) {
+  /* copyright · credit (centre) · legal links */
+  .footer__bottom { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .footer__bottom ul { justify-self: end; }
+}
+
+/* ==========================================================================
+   Final CTA — full logo lockup card between Partners and Join
+   ========================================================================== */
+.final-cta {
+  padding: 0 0 clamp(4.5rem, 3.5rem + 4vw, 7rem);
+  background: url("../images/brand/pattern-diamond-wine.svg") center top / 56px 56px, var(--cream);
+}
+.final-cta__card {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  padding: clamp(2.25rem, 1.5rem + 3vw, 4rem) clamp(1.25rem, 1rem + 3vw, 4rem);
+  border: 2px solid var(--gold);
+  border-radius: 1.75rem;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 34px 60px -36px rgba(5, 46, 102, .45);
+}
+.final-cta__lockup { width: min(32rem, 100%); height: auto; }
+.final-cta__title { margin-top: .5rem; color: var(--navy); font-weight: 700; }
+.final-cta__meta { font-size: var(--fs-body); color: var(--ink-muted); }
+.final-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+.btn--outline-navy { border-color: var(--navy); color: var(--navy); }
+.btn--outline-navy:hover { background: var(--navy); color: var(--linen); }
+@media (max-width: 29.99em) {
+  .final-cta__actions .btn { width: 100%; }
+}
+
+/* ==========================================================================
+   Eventbrite embedded checkout
+   ========================================================================== */
+/* Lenis disables pointer events on iframes while smooth-scrolling; the
+   Eventbrite checkout is an iframe, so it must stay clickable. */
+.lenis.lenis-smooth iframe[src*="eventbrite"] { pointer-events: auto; }
+
+/* Order-confirmed toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 200;
+  max-width: min(30rem, calc(100% - 2rem));
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 20px 40px -16px rgba(3, 20, 48, .6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 1rem);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s;
+}
+.toast.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s;
+}
+.toast::before { content: "✓ "; color: var(--gold); }
