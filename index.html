@@ -402,15 +402,20 @@
       </div>
     </section>
 
-    <!-- ============ TWO ROADS (Glacier) ============ -->
+    <!-- ============ TWO ROADS (street photo + navy overlay) ============ -->
     <section class="roads" id="two-roads" aria-labelledby="roads-title">
+      <picture class="roads__bg" aria-hidden="true">
+        <source type="image/webp" srcset="images/roads/roads-street-960.webp 960w, images/roads/roads-street-1920.webp 1920w" sizes="100vw">
+        <img src="images/roads/roads-street-1920.jpg" srcset="images/roads/roads-street-960.jpg 960w, images/roads/roads-street-1920.jpg 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
       <div class="container">
 
         <div class="roads__intro">
           <div class="roads__heading">
-            <p class="eyebrow">
+            <p class="eyebrow eyebrow--light">
               <span class="eyebrow__rule" aria-hidden="true"></span>
               Two Roads
+              <span class="eyebrow__rule eyebrow__rule--end" aria-hidden="true"></span>
             </p>
             <h2 class="roads__title t-h1" id="roads-title" data-marks>Two roads to <span class="mark-keep"><span class="mark">ownership<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 6.5C70 3.5 130 9 197 5"/></svg></span></span></h2>
           </div>
@@ -456,7 +461,9 @@
             </div>
             <h3 class="road__title t-h3" id="road-eo">Employee Ownership (EO)</h3>
             <p class="road__text">A powerful tool for <strong>increasing employee engagement</strong> and stronger business outcomes. It is a consideration for small businesses with 35 or more employees.</p>
-            <img class="road__art" src="images/brand/illustration-bakery.svg" alt="" width="379" height="373" loading="lazy">
+            <div class="road__art" aria-hidden="true">
+              <img src="images/brand/illustration-bakery.svg" alt="" width="379" height="373" loading="lazy">
+            </div>
           </article>
         </div>
 

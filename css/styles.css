@@ -1396,45 +1396,53 @@ body.menu-locked { overflow: hidden; }
 body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 
 /* ==========================================================================
-   6. Two Roads — Glacier section, fork-in-the-road graphic, two route cards
+   6. Two Roads — street photo under a navy overlay, fork graphic, two route cards
    ========================================================================== */
 .roads {
   --glacier: #9EC5CC;
   --wave-h: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-block: calc(clamp(4rem, 3rem + 5vw, 7rem) + var(--wave-h) * .6) clamp(4.5rem, 3.5rem + 5vw, 7.5rem);
-  background: var(--glacier);
-  color: var(--ink);
+  background: var(--navy);
+  color: var(--ink-on-dark);
+}
+.roads__bg { position: absolute; inset: 0; z-index: -2; }
+.roads__bg img { width: 100%; height: 100%; object-fit: cover; }
+.roads::after {           /* navy overlay keeps all text well above 4.5:1 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(5, 46, 102, .82) 0%, rgba(5, 46, 102, .7) 45%, rgba(5, 30, 66, .88) 100%);
 }
 .roads::before {          /* cream wave from Why It Matters */
   content: "";
   position: absolute;
   left: 0; right: 0; top: -1px;
+  z-index: 1;
   height: var(--wave-h);
   background: url("../images/brand/divider-wave-cream.svg") no-repeat center top / 100% 100%;
   pointer-events: none;
 }
 
-/* ---------- Header: mirror of About (text left, headline right) ---------- */
-.roads__intro { display: grid; gap: 1.25rem; }
-.roads__heading { display: grid; gap: 1.25rem; }
-.roads__title { color: var(--navy); }
+/* ---------- Header: centred stack — label, headline, paragraph ---------- */
+.roads__intro { display: grid; justify-items: center; gap: 1.25rem; text-align: center; }
+.roads__heading { display: grid; justify-items: center; gap: 1.25rem; }
+.roads__title { color: #fff; }
 .roads__text {
-  max-width: 34rem;
+  max-width: 40rem;
   font-size: var(--fs-body-lg);
   line-height: 1.55;
+  color: var(--ink-on-dark);
 }
-.roads__text strong { font-weight: 600; color: var(--navy); }
+.roads__text strong { font-weight: 600; color: #fff; }
 
 @media (min-width: 64em) {
-  .roads__intro {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    grid-template-areas: "text heading";
-    column-gap: clamp(3rem, 1rem + 4vw, 5.5rem);
-    align-items: end;
-  }
-  .roads__heading { grid-area: heading; }
-  .roads__text { grid-area: text; padding-bottom: .4rem; }
+  /* Stacked: one-line headline, paragraph straight under it at a wide measure (~3 lines) */
+  .roads__title { white-space: nowrap; }
+  .roads__text { max-width: 46rem; }
 }
 
 /* ---------- Fork graphic (tablet +) ---------- */
@@ -1466,8 +1474,8 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
     overflow: visible;
   }
   .roads__svg path { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .roads__asphalt path { stroke: var(--navy); stroke-width: 22; }
-  .roads__lane path { stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 10 12; }
+  .roads__asphalt path { stroke: var(--linen); stroke-width: 22; }
+  .roads__lane path { stroke: var(--navy); stroke-width: 2.5; stroke-dasharray: 10 12; }
 
   /* Draw-in: the road unrolls from the top when it scrolls into view */
   .roads__svg { clip-path: inset(0 0 100% 0); transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1) .15s; }
@@ -1492,15 +1500,15 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
     width: 14px;
     border-radius: 7px;
     background:
-      repeating-linear-gradient(to bottom, var(--gold) 0 10px, transparent 10px 22px) center / 2px 100% no-repeat,
-      var(--navy);
+      repeating-linear-gradient(to bottom, var(--navy) 0 10px, transparent 10px 22px) center / 2px 100% no-repeat,
+      var(--linen);
   }
   .road::before {               /* node where each card meets the road */
     content: "";
     position: absolute;
     left: -2.1rem; top: 1.75rem;
     width: 1.25rem; height: 1.25rem;
-    border: 3px solid var(--navy);
+    border: 3px solid var(--linen);
     border-radius: 50%;
     background: var(--gold);
   }
@@ -1524,7 +1532,7 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 }
 
 .road--primary {
-  background: url("../images/brand/pattern-diamond.svg") center / 56px 56px, var(--navy);
+  background: url("../images/brand/pattern-diamond.svg") center / 56px 56px, var(--wine);
   color: var(--ink-on-dark);
   box-shadow: 0 30px 50px -28px rgba(5, 30, 66, .7);
 }
@@ -1562,11 +1570,38 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
 }
 .road__badge--soft { background: var(--glacier); }
 
+/* Illustration centred in the card's remaining space, on a soft Glacier disc with a ground line */
 .road__art {
-  width: min(13rem, 70%);
+  position: relative;
+  display: grid;
+  place-items: end center;
+  flex: 1;
+  min-height: 11.5rem;
+  margin-top: 1rem;
+  padding-bottom: .75rem;
+}
+.road__art::before {               /* disc */
+  content: "";
+  position: absolute;
+  left: 50%; bottom: .75rem;
+  width: 10.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(158, 197, 204, .45);
+  transform: translateX(-50%);
+}
+.road__art::after {                /* ground line */
+  content: "";
+  position: absolute;
+  left: 8%; right: 8%; bottom: .75rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--wine);
+}
+.road__art img {
+  position: relative;
+  width: 9rem;
   height: auto;
-  margin: auto 0 0 auto;          /* sits at the bottom-right of the card */
-  padding-top: 1rem;
 }
 .road__title { font-weight: 700; }
 .road--primary .road__title { color: #fff; }
@@ -1624,20 +1659,20 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   margin: clamp(2.5rem, 2rem + 2vw, 3.5rem) auto 0;
   text-align: center;
   font-size: var(--fs-body);
-  color: var(--ink);
+  color: var(--ink-on-dark);
 }
 .roads__note a {
   display: inline-block;
   margin-top: .25rem;
   font-family: var(--font-head);
   font-weight: 600;
-  color: var(--navy);
+  color: var(--gold);
   text-decoration: underline;
-  text-decoration-color: var(--navy);
+  text-decoration-color: var(--gold);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
-.roads__note a:hover { color: var(--wine); text-decoration-color: var(--wine); }
+.roads__note a:hover { color: #fff; text-decoration-color: #fff; }
 
 /* ==========================================================================
    Active nav link (set by active-nav.js as the visitor scrolls)
