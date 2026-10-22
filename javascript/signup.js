@@ -1,7 +1,12 @@
 /* ==========================================================================
    AcquireLocal — signup.js
-   Submits [data-signup] forms to Formspree without leaving the page and
-   announces the result (role="status"). Without JS the form posts normally.
+   Submits [data-signup] forms to Netlify Forms without leaving the page and
+   announces the result (role="status"). Netlify detects these forms at deploy
+   (data-netlify="true") and emails each submission (set the recipient in
+   Netlify: Site → Forms → Form notifications).
+
+   Without JS the form posts normally and Netlify shows its success page.
+   Note: submissions only work on the deployed Netlify site, not local preview.
    ========================================================================== */
 (function () {
   "use strict";
@@ -24,13 +29,22 @@
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
+      // Netlify expects a urlencoded POST to the page, including "form-name".
+      // Several ticked interests are sent as one readable line.
+      var data = new FormData(form);
+      var interests = data.getAll("interest");
+      if (interests.length) {
+        data.delete("interest");
+        data.append("interest", interests.join(", "));
+      }
+
       button.disabled = true;
       say("Sending…", true);
 
-      fetch(form.action, {
+      fetch("/", {
         method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" }
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString()
       })
         .then(function (res) {
           if (!res.ok) throw new Error(res.status);
