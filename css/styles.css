@@ -236,6 +236,7 @@
   color: var(--ink-on-dark);
 }
 .nav__contact-list a {
+  padding-block: .2rem;        /* ≥24px tap target */
   color: var(--ink-on-dark);
   text-decoration: underline;
   text-decoration-color: rgba(243, 236, 229, .35);
@@ -1059,6 +1060,7 @@ body.menu-locked { overflow: hidden; }
 .ticket__value { font-weight: 600; line-height: 1.45; color: var(--navy); }
 .ticket__link {
   justify-self: start;
+  padding-block: .2rem;        /* ≥24px tap target (WCAG 2.5.8) */
   font-size: .9375rem;
   color: var(--ink);
   text-decoration: underline;
