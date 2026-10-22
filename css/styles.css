@@ -422,10 +422,10 @@ body.menu-locked { overflow: hidden; }
   to   { transform: scale(1); }
 }
 /* Per-photo focal points (keep faces in frame on narrow screens) */
-.hero__slide:nth-child(1) img { object-position: 35% 30%; }
-.hero__slide:nth-child(2) img { object-position: 62% 35%; }
-.hero__slide:nth-child(3) img { object-position: 55% 30%; }
-.hero__slide:nth-child(4) img { object-position: 65% 35%; }
+.hero__slide:nth-child(1) img { object-position: 45% 25%; }   /* couple at the produce stand */
+.hero__slide:nth-child(2) img { object-position: 60% 30%; }   /* owner with tablet, right of centre */
+.hero__slide:nth-child(3) img { object-position: 57% 25%; }   /* young couple outside their shop */
+.hero__slide:nth-child(4) img { object-position: 65% 30%; }   /* owner at the counter, right side */
 
 /* Per-photo tone: the brightest photos are dimmed a little so the wash can stay
    light. Values were checked so all hero text keeps 4.5:1 contrast on every photo. */
@@ -704,7 +704,8 @@ body.menu-locked { overflow: hidden; }
   height: 100%;
   object-fit: cover;
 }
-.about__photo:first-of-type img { object-position: 40% 28%; }   /* keeps her face + hands in frame */
+.about__photo:first-of-type img { object-position: 28% 35%; }   /* her face (left) + hands with tablet */
+.about__photo:last-of-type img { object-position: 58% 55%; }    /* the two owners in the doorway */
 
 .about__tag {
   position: absolute;
@@ -1343,7 +1344,10 @@ body.menu-locked { overflow: hidden; }
   transition: transform 1.2s var(--ease);
 }
 .why__photo:not([hidden]) img { transform: scale(1); }
-#why-panel-firm img { object-position: 50% 30%; }
+/* Focal points: keep each person in frame however the box is cropped */
+#why-panel-hardware img   { object-position: 45% 30%; }   /* couple's faces, upper middle */
+#why-panel-restaurant img { object-position: 50% 60%; }   /* storefront + tables */
+#why-panel-firm img       { object-position: 40% 72%; }   /* craftsman sits in the lower third of a tall photo */
 
 @media (min-width: 64em) {
   .why__media { aspect-ratio: auto; min-height: 18rem; }     /* stretch to the card's height */
@@ -1823,7 +1827,7 @@ body.menu-locked .to-top { opacity: 0; visibility: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 75% 45%;
+  object-position: 78% 42%;      /* professional working in the window, far right */
   transition: transform 1s var(--ease);
 }
 @media (hover: hover) {
