@@ -92,26 +92,3 @@
     if (e.matches && isOpen()) closeMenu(false);
   });
 })();
-
-/* ---------- Desktop submenu toggle (Why It Matters → Ownership) ---------- */
-(function () {
-  "use strict";
-  var toggles = document.querySelectorAll(".nav__subtoggle");
-  Array.prototype.forEach.call(toggles, function (btn) {
-    var item = btn.closest(".nav__item--has-sub");
-    function set(open) {
-      item.classList.toggle("is-open", open);
-      btn.setAttribute("aria-expanded", String(open));
-    }
-    btn.addEventListener("click", function () { set(btn.getAttribute("aria-expanded") !== "true"); });
-    item.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && item.classList.contains("is-open")) { set(false); btn.focus(); }
-    });
-    item.addEventListener("focusout", function (e) {
-      if (!item.contains(e.relatedTarget)) set(false);
-    });
-    item.addEventListener("click", function (e) {
-      if (e.target.closest(".nav__link--sub")) set(false);
-    });
-  });
-})();

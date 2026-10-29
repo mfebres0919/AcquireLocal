@@ -5,9 +5,9 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:acquirelocal-brooklyn-2026-11-12@acquirelocal
-DTSTAMP:20261022T000000Z
+DTSTAMP:20261029T000000Z
 DTSTART:20261112T220000Z
-DTEND:20261113T010000Z
+DTEND:20261113T013000Z
 SUMMARY:AcquireLocal Brooklyn 2026
 DESCRIPTION:Where Business Ownership Meets Business Succession. Tickets: https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008
 LOCATION:St. Francis College\, 179 Livingston Street\, Brooklyn\, NY

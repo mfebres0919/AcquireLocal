@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Accessibility Statement | AcquireLocal</title>
   <meta name="description" content="How AcquireLocal makes this website accessible to everyone, and how to tell us if something gets in your way.">
-  <meta name="theme-color" content="#052E66">
+  <meta name="theme-color" content="#5C1F30">
   <link rel="canonical" href="https://mfebres0919.github.io/AcquireLocal/html/accessibility.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="AcquireLocal">
@@ -16,8 +16,8 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="../fonts/web/poppins-bold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/web/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/web/noto-sans-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/web/noto-sans-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/vendor/lenis.css">
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/styles.css">
@@ -30,20 +30,19 @@
     <div class="topbar">
       <div class="container topbar__inner">
         <p class="topbar__event">
-          <span class="topbar__full">Thursday, Nov 12 · 5–8 PM · St. Francis College, Brooklyn</span>
+          <span class="topbar__full">Thursday, Nov 12 · 5:00–8:30 PM · St. Francis College, Brooklyn</span>
           <span class="topbar__short">Nov 12 · Brooklyn</span>
         </p>
         <a class="topbar__link" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008?aff=topbar" target="_blank" rel="noopener">
-          Tickets $25 <span class="glyph" data-icon="→"></span><span class="visually-hidden"> (opens in a new tab)</span>
+          Tickets $25<span class="visually-hidden"> (opens in a new tab)</span>
         </a>
       </div>
     </div>
 
     <div class="nav">
       <div class="container nav__inner">
-        <a class="nav__logo" href="../index.html" aria-label="AcquireLocal home">
-          <img class="nav__logo-img nav__logo-img--light" src="../images/brand/wordmark-light.svg" alt="" width="463" height="102">
-          <img class="nav__logo-img nav__logo-img--dark" src="../images/brand/wordmark.svg" alt="" width="463" height="100">
+        <a class="nav__logo" href="../index.html">
+          <img class="nav__logo-img" src="../images/brand/wordmark.svg" alt="AcquireLocal home" width="463" height="100">
         </a>
 
         <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
@@ -53,25 +52,14 @@
 
         <nav class="nav__menu" id="nav-menu" aria-label="Main" data-lenis-prevent>
           <ul class="nav__list">
-            <li><a class="nav__link" href="../index.html#about"><span class="nav__num"></span><span class="nav__label">About</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#event"><span class="nav__num"></span><span class="nav__label">The Event</span><span class="nav__arrow"></span></a></li>
-            <li class="nav__item--has-sub">
-              <div class="nav__parent">
-                <a class="nav__link" href="../index.html#why"><span class="nav__num"></span><span class="nav__label">Why It Matters</span><span class="nav__arrow"></span></a>
-                <button class="nav__subtoggle" type="button" aria-expanded="false" aria-controls="nav-sub-why"><span class="visually-hidden">Why It Matters submenu</span></button>
-              </div>
-              <ul class="nav__sub" id="nav-sub-why">
-                <li><a class="nav__link nav__link--sub" href="../index.html#ownership"><span class="nav__label">Ownership</span><span class="nav__arrow"></span></a></li>
-              </ul>
-            </li>
-            <li><a class="nav__link" href="../index.html#partners"><span class="nav__num"></span><span class="nav__label">Partners</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#faq"><span class="nav__num"></span><span class="nav__label">FAQ</span><span class="nav__arrow"></span></a></li>
-            <li><a class="nav__link" href="../index.html#join"><span class="nav__num"></span><span class="nav__label">Join Us</span><span class="nav__arrow"></span></a></li>
+            <li><a class="nav__link" href="../index.html#about"><span class="nav__label">About</span></a></li>
+            <li><a class="nav__link" href="../index.html#event"><span class="nav__label">The Event</span></a></li>
+            <li><a class="nav__link" href="../index.html#agenda"><span class="nav__label">Agenda</span></a></li>
+            <li><a class="nav__link" href="../index.html#why"><span class="nav__label">Why It Matters</span></a></li>
+            <li><a class="nav__link" href="../index.html#partners"><span class="nav__label">Partners</span></a></li>
+            <li><a class="nav__link" href="../index.html#join"><span class="nav__label">Join Us</span></a></li>
           </ul>
           <div class="nav__aside">
-          <a class="btn btn--gold nav__cta" data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008?aff=nav" target="_blank" rel="noopener">
-            Reserve Your Seat <span class="btn__arrow" data-icon="↗"></span><span class="visually-hidden"> (opens in a new tab)</span>
-          </a>
 
           <!-- Phone menu only: event + contact details -->
           <div class="nav__contact">
@@ -80,7 +68,7 @@
               <ul class="nav__contact-list">
                 <li>
                   <svg class="nav__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-                  <span>Thursday, Nov 12 · 5:00–8:00 PM</span>
+                  <span>Thursday, Nov 12 · 5:00–8:30 PM</span>
                 </li>
                 <li>
                   <svg class="nav__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
@@ -113,17 +101,11 @@
   <main id="main" tabindex="-1">
 
     <section class="legal-hero legal-hero--accessibility" aria-labelledby="legal-title">
-      <picture class="legal-hero__bg">
-        <source type="image/webp" srcset="../images/pages/accessibility-960.webp 960w, ../images/pages/accessibility-1920.webp 1920w" sizes="100vw">
-        <img src="../images/pages/accessibility-1920.jpg" srcset="../images/pages/accessibility-960.jpg 960w, ../images/pages/accessibility-1920.jpg 1920w" sizes="100vw" alt="" fetchpriority="high">
-      </picture>
       <div class="container legal-hero__inner">
-        <p class="eyebrow eyebrow--light">
-          <span class="eyebrow__rule"></span>
+        <p class="eyebrow">
           Accessibility
-          <span class="eyebrow__rule eyebrow__rule--end"></span>
         </p>
-        <h1 class="legal-hero__title" id="legal-title" data-marks>Accessibility <span class="mark-keep"><span class="mark">Statement<svg class="mark__line" viewBox="0 0 200 12" preserveAspectRatio="none" role="presentation" focusable="false"><path pathLength="1" d="M3 8.5C48 4 104 3.2 197 6.5"/></svg></span></span></h1>
+        <h1 class="legal-hero__title" id="legal-title">Accessibility Statement</h1>
         <p class="legal-hero__intro">AcquireLocal wants everyone to be able to learn, connect, and take part. Here is how we make this website accessible, and how to reach us if something gets in your way.</p>
         <p class="legal-hero__meta">Last updated: <time datetime="2026-10-22">October 22, 2026</time></p>
       </div>
@@ -218,10 +200,10 @@
         <ul>
           <li><a href="../index.html#about">About</a></li>
           <li><a href="../index.html#event">The Event</a></li>
+          <li><a href="../index.html#agenda">Agenda</a></li>
           <li><a href="../index.html#why">Why It Matters</a></li>
-          <li><a href="../index.html#ownership">Ownership</a></li>
           <li><a href="../index.html#partners">Partners</a></li>
-          <li><a href="../index.html#faq">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="../index.html#join">Join Us</a></li>
         </ul>
       </div>
@@ -229,7 +211,7 @@
       <div class="footer__col">
         <p class="footer__title">Brooklyn 2026</p>
         <ul>
-          <li>Thursday, November 12 · 5–8 PM</li>
+          <li>Thursday, November 12 · 5:00–8:30 PM</li>
           <li>St. Francis College<br>179 Livingston Street, Brooklyn</li>
           <li><a data-eventbrite href="https://www.eventbrite.com/e/acquire-local-inaugural-event-tickets-2002596155008?aff=footer" target="_blank" rel="noopener">Tickets $25 on Eventbrite<span class="visually-hidden"> (opens in a new tab)</span></a></li>
         </ul>
@@ -258,8 +240,9 @@
   <!-- Announces the Eventbrite order confirmation (filled by eventbrite-checkout.js) -->
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-  <a class="to-top" href="#main" aria-label="Back to top" data-to-top>
+  <a class="to-top" href="#main" data-to-top>
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <span class="visually-hidden">Back to top</span>
   </a>
 
   <script src="../javascript/vendor/lenis.min.js" defer></script>
